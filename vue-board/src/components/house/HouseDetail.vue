@@ -44,6 +44,14 @@
         >
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <b-alert show variant="primary"
+          >아파트 주소: {{ house.도로명 }} {{ house.도로명건물본번호코드 }}
+          {{ house.도로명건물부번호코드 }}
+        </b-alert>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
