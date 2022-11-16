@@ -1,40 +1,37 @@
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-orange">
+  <div style="position: relative">
+    <!-- <h3 class="underline-orange">
       <b-icon icon="house-fill"></b-icon> House Service
-    </h3>
-    <b-row>
-      <b-col>
-        <house-search-bar></house-search-bar>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <house-map></house-map>
-      </b-col>
-    </b-row>
-    <b-row>
+    </h3> -->
+    <div>
+      <house-map></house-map>
+    </div>
+    <div style="position: absolute; top: 15px; right: 20px; z-index: 1">
+      <house-search-bar></house-search-bar>
+    </div>
+
+    <!-- <b-row>
       <b-col cols="6" align="left">
         <house-list />
       </b-col>
       <b-col cols="6">
         <house-detail />
       </b-col>
-    </b-row>
-  </b-container>
+    </b-row> -->
+  </div>
 </template>
 <script>
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
-import HouseList from "@/components/house/HouseList.vue";
-import HouseDetail from "@/components/house/HouseDetail.vue";
+//import HouseList from "@/components/house/HouseList.vue";
+//import HouseDetail from "@/components/house/HouseDetail.vue";
 import HouseMap from "@/components/house/HouseMap.vue";
 
 export default {
   name: "House",
   components: {
     HouseSearchBar,
-    HouseList,
-    HouseDetail,
+    //HouseList,
+    //HouseDetail,
     HouseMap,
   },
 };

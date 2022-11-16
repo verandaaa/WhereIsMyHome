@@ -2,13 +2,11 @@
   <div>
     <div id="map"></div>
     <div class="button-group">
-      <button @click="changeSize(0)">Hide</button>
-      <button @click="changeSize(400)">show</button>
-      <button @click="displayMarker(markerPositions1)">marker set 1</button>
+      <!-- <button @click="displayMarker(markerPositions1)">marker set 1</button>
       <button @click="displayMarker(markerPositions2)">marker set 2</button>
       <button @click="displayMarker([])">marker set 3 (empty)</button>
-      <button @click="displayInfoWindow">infowindow</button>
-      <button @click="displayMarker2">주소로장소찾기</button>
+      <button @click="displayInfoWindow">infowindow</button> -->
+      <button @click="findHouse">검색</button>
     </div>
   </div>
 </template>
@@ -54,7 +52,7 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=892d495e179cd940ef03591ce36ec983&libraries=services";
+        "//dapi.kakao.com/v2/maps/sdk.js?appkey=892d495e179cd940ef03591ce36ec983&libraries=services&autoload=false";
       document.head.appendChild(script);
     }
   },
@@ -62,8 +60,8 @@ export default {
     initMap() {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 5,
+        center: new kakao.maps.LatLng(37.541, 126.986),
+        level: 10,
       };
 
       //지도 객체를 등록합니다.
@@ -102,8 +100,12 @@ export default {
         this.map.setBounds(bounds);
       }
     },
-    displayMarker2() {
-      // 주소-좌표 변환 객체를 생성합니다
+    findHouse() {
+      let i = 0;
+      for (let k = 0; k < this.markers.length; k++) {
+        this.markers[k].setMap(null);
+      }
+      this.markers = [];
       this.geocoder = new kakao.maps.services.Geocoder();
 
       this.houses.forEach((item) => {
@@ -113,25 +115,22 @@ export default {
           item.도로명건물본번호코드 +
           " " +
           item.도로명건물부번호코드;
-        //console.log(adress);
-
-        // 주소로 좌표를 검색합니다
-        this.geocoder.addressSearch(adress, function (result, status) {
-          // 정상적으로 검색이 완료됐으면
+        this.geocoder.addressSearch(adress, (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            // 결과값으로 받은 위치를 마커로 표시합니다
+            console.log(coords);
+
             var marker = new kakao.maps.Marker({
               map: this.map,
               position: coords,
             });
 
-            // 마커가 지도 위에 표시되도록 설정합니다
-            marker.setMap(this.map);
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            this.map.setCenter(coords);
+            i++;
+            this.markers.push(marker);
+            if (i == 1) {
+              this.map.panTo(coords);
+            }
           }
         });
       });
@@ -144,7 +143,7 @@ export default {
 <style scoped>
 #map {
   width: 100%;
-  height: 500px;
+  height: 800px;
 }
 
 .button-group {
