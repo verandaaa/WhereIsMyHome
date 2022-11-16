@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="house" class="bv-example-row">
+  <div v-if="house" style="background-color: white">
     <b-row>
       <b-col
         ><h3>{{ house.아파트 }}</h3></b-col
@@ -52,7 +52,7 @@
         </b-alert>
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </template>
 
 <script>

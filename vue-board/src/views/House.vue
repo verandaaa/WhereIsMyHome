@@ -10,12 +10,16 @@
       <house-search-bar></house-search-bar>
     </div>
 
+    <!-- <house-detail /> -->
+    <div
+      style="position: absolute; top: 0px; left: 0px; z-index: 1; width: 400px"
+    >
+      <house-detail />
+    </div>
+
     <b-row>
-      <b-col cols="6" align="left">
+      <b-col>
         <house-list />
-      </b-col>
-      <b-col cols="6">
-        <house-detail />
       </b-col>
     </b-row>
   </div>

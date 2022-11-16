@@ -106,6 +106,10 @@ export default {
         this.map.setBounds(bounds);
       }
     },
+    check() {
+      alert("눌렀습니다");
+      console.log("눌렀습니다");
+    },
     findHouse() {
       let i = 0;
       for (let k = 0; k < this.markers.length; k++) {
@@ -129,7 +133,7 @@ export default {
           if (status === kakao.maps.services.Status.OK) {
             let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            console.log(coords);
+            //console.log(coords);
 
             var marker = new kakao.maps.Marker({
               map: this.map,
@@ -137,8 +141,8 @@ export default {
             });
 
             var content =
-              '<div class="overlay">' +
-              '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+              '<div class="overlay" @click="check">' +
+              "  <a>" +
               '    <span class="title">' +
               item.거래금액 +
               "만원";
