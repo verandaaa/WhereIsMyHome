@@ -18,11 +18,10 @@
       ></b-form-select>
     </b-col>
     <b-col class="sm-3">
-      <b-form-select
-        v-model="gugunCode"
-        :options="guguns"
-        @change="searchApt"
-      ></b-form-select>
+      <b-form-select v-model="gugunCode" :options="guguns"></b-form-select>
+    </b-col>
+    <b-col class="sm-3">
+      <b-button @click="searchApt">목록</b-button>
     </b-col>
   </b-row>
 </template>
