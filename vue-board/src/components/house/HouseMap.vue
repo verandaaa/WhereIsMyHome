@@ -13,6 +13,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { mapActions } from "vuex";
 
 const houseStore = "houseStore";
 
@@ -110,6 +111,12 @@ export default {
       alert("눌렀습니다");
       console.log("눌렀습니다");
     },
+    ...mapActions(houseStore, ["detailHouse"]),
+    selectHouse(item) {
+      // console.log("listRow : ", this.house);
+      // this.$store.dispatch("getHouse", this.house);
+      this.detailHouse(item);
+    },
     findHouse() {
       let i = 0;
       for (let k = 0; k < this.markers.length; k++) {
@@ -140,13 +147,24 @@ export default {
               position: coords,
             });
 
-            var content =
-              '<div class="overlay" @click="check">' +
-              "  <a>" +
-              '    <span class="title">' +
-              item.거래금액 +
-              "만원";
-            "</span>" + "  </a>" + "</div>";
+            // var content =
+            //   '<div class="overlay"><a><span class="title">' +
+            //   item.거래금액 +
+            //   "만원</span></a></div>";
+
+            const content = document.createElement("div");
+            content.className = "overlay";
+            const a = document.createElement("a");
+            const span = document.createElement("span");
+            span.className = "title";
+            span.appendChild(document.createTextNode(item.거래금액 + "만"));
+            a.appendChild(span);
+            content.appendChild(a);
+
+            content.onclick = () => {
+              this.selectHouse(item);
+              //console.log(item);
+            };
 
             var overlay = new kakao.maps.CustomOverlay({
               map: this.map,
@@ -173,7 +191,7 @@ export default {
 <style>
 #map {
   width: 100%;
-  height: 700px;
+  height: 100vh;
 }
 
 .overlay {
