@@ -6,6 +6,33 @@
       </b-col>
     </b-row>
     <b-row class="mb-1">
+      <div class="col-md-5 offset-5">
+        <form class="d-flex" id="form-search" action="">
+          <input type="hidden" name="pgno" value="1" />
+          <select
+            class="form-select form-select-sm ms-5 me-1 w-50"
+            id="skey"
+            name="key"
+            aria-label="검색조건"
+          >
+            <option value="" selected>검색조건</option>
+            <option value="subject">제목</option>
+            <option value="userid">작성자</option>
+          </select>
+          <div class="input-group input-group-sm">
+            <input
+              type="text"
+              class="form-control"
+              id="sword"
+              name="word"
+              placeholder="검색어..."
+            />
+            <button id="btn-search" class="btn btn-dark" type="button">
+              검색
+            </button>
+          </div>
+        </form>
+      </div>
       <b-col class="text-right">
         <b-button variant="outline-primary" @click="moveWrite()"
           >글쓰기</b-button
@@ -36,34 +63,56 @@
       </b-col>
       <!-- <b-col v-else class="text-center">도서 목록이 없습니다.</b-col> -->
     </b-row>
+
+    <board-list-page v-bind:pageNavigation="pageNavigation"></board-list-page>
+
+    <form id="form-param" method="get" action="">
+      <input type="hidden" id="pgno" name="pgno" v-bind:value="search.pg" />
+      <input type="hidden" name="key" v-bind:value="search.key" />
+      <input type="hidden" name="word" v-bind:value="search.word" />
+    </form>
   </b-container>
 </template>
 
 <script>
 import BoardListRow from "@/components/board/child/BoardListRow";
+import BoardListPage from "@/components/board/child/BoardListPage";
 import { listArticle } from "@/api/board.js";
 
 export default {
   name: "BoardList",
   components: {
     BoardListRow,
+    BoardListPage,
   },
   data() {
     return {
       articles: [],
+      search: {
+        pg: this.$route.query.pg,
+        key: "",
+        word: "",
+      },
+      pageNavigation: {},
     };
   },
   created() {
     let param = {
-      pg: 1,
+      pg: this.search.pg,
       spp: 20,
-      key: null,
-      word: null,
+      key: this.key,
+      word: this.word,
     };
+
     listArticle(
       param,
       (response) => {
-        this.articles = response.data;
+        console.log(response.data);
+        this.articles = response.data.articles;
+        this.pageNavigation = response.data.pageNavigation;
+        this.pg = response.data.pg;
+        this.key = response.data.key;
+        this.word = response.data.word;
       },
       (error) => {
         console.log(error);
