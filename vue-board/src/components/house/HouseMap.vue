@@ -6,7 +6,7 @@
       <button @click="displayMarker(markerPositions2)">marker set 2</button>
       <button @click="displayMarker([])">marker set 3 (empty)</button>
       <button @click="displayInfoWindow">infowindow</button> -->
-      <button @click="findHouse">검색</button>
+      <!-- <button @click="findHouse">검색</button> -->
     </div>
   </div>
 </template>
@@ -35,6 +35,7 @@ export default {
         [37.49646391248451, 127.02675574250912],
       ],
       markers: [],
+      overlays: [],
       infowindow: null,
     };
   },
@@ -43,6 +44,11 @@ export default {
     // houses() {
     //   return this.$store.state.houses;
     // },
+  },
+  watch: {
+    houses() {
+      this.findHouse();
+    },
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -61,7 +67,7 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(37.541, 126.986),
-        level: 10,
+        level: 5,
       };
 
       //지도 객체를 등록합니다.
@@ -100,12 +106,20 @@ export default {
         this.map.setBounds(bounds);
       }
     },
+    check() {
+      alert("눌렀습니다");
+      console.log("눌렀습니다");
+    },
     findHouse() {
       let i = 0;
       for (let k = 0; k < this.markers.length; k++) {
         this.markers[k].setMap(null);
+        this.overlays[k].setMap(null);
       }
+      //오버레이 지우는 코드 넣기
+
       this.markers = [];
+      this.overlays = [];
       this.geocoder = new kakao.maps.services.Geocoder();
 
       this.houses.forEach((item) => {
@@ -119,15 +133,31 @@ export default {
           if (status === kakao.maps.services.Status.OK) {
             let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            console.log(coords);
+            //console.log(coords);
 
             var marker = new kakao.maps.Marker({
               map: this.map,
               position: coords,
             });
 
+            var content =
+              '<div class="overlay" @click="check">' +
+              "  <a>" +
+              '    <span class="title">' +
+              item.거래금액 +
+              "만원";
+            "</span>" + "  </a>" + "</div>";
+
+            var overlay = new kakao.maps.CustomOverlay({
+              map: this.map,
+              position: coords,
+              content: content,
+              yAnchor: 1,
+            });
+
             i++;
             this.markers.push(marker);
+            this.overlays.push(overlay);
             if (i == 1) {
               this.map.panTo(coords);
             }
@@ -140,17 +170,55 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 #map {
   width: 100%;
-  height: 800px;
+  height: 700px;
 }
 
-.button-group {
-  margin: 10px 0px;
+.overlay {
+  position: relative;
+  bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #ddd;
+  float: left;
 }
-
-button {
-  margin: 0 3px;
+.overlay:nth-of-type(n) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+.overlay a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  overflow: hidden;
+  background: #d95050;
+  background: #d95050
+    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+    no-repeat right 14px center;
+}
+.overlay .title {
+  display: block;
+  text-align: center;
+  background: #fff;
+  margin-right: 35px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.overlay:after {
+  content: "";
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: -12px;
+  width: 22px;
+  height: 12px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
 </style>

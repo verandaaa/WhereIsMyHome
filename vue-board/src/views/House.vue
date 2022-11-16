@@ -10,28 +10,32 @@
       <house-search-bar></house-search-bar>
     </div>
 
-    <!-- <b-row>
-      <b-col cols="6" align="left">
+    <!-- <house-detail /> -->
+    <div
+      style="position: absolute; top: 0px; left: 0px; z-index: 1; width: 400px"
+    >
+      <house-detail />
+    </div>
+
+    <b-row>
+      <b-col>
         <house-list />
       </b-col>
-      <b-col cols="6">
-        <house-detail />
-      </b-col>
-    </b-row> -->
+    </b-row>
   </div>
 </template>
 <script>
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
-//import HouseList from "@/components/house/HouseList.vue";
-//import HouseDetail from "@/components/house/HouseDetail.vue";
+import HouseList from "@/components/house/HouseList.vue";
+import HouseDetail from "@/components/house/HouseDetail.vue";
 import HouseMap from "@/components/house/HouseMap.vue";
 
 export default {
   name: "House",
   components: {
     HouseSearchBar,
-    //HouseList,
-    //HouseDetail,
+    HouseList,
+    HouseDetail,
     HouseMap,
   },
 };
