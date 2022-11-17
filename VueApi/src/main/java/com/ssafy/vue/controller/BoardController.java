@@ -1,8 +1,6 @@
 package com.ssafy.vue.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.util.PageNavigation;
 import com.ssafy.vue.model.BoardDto;
 import com.ssafy.vue.model.BoardParameterDto;
 import com.ssafy.vue.model.service.BoardService;
@@ -53,23 +50,9 @@ public class BoardController {
 	
 	@ApiOperation(value = "게시판 글목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)
 	@GetMapping
-//	public ResponseEntity<List<BoardDto>> listArticle(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto) throws Exception {
-	public ResponseEntity<Map<String, Object>> listArticle(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto) throws Exception {
+	public ResponseEntity<List<BoardDto>> listArticle(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto) throws Exception {
 		logger.info("listArticle - 호출");
-		List<BoardDto> articles = boardService.listArticle(boardParameterDto);
-		PageNavigation pageNavigation = boardService.makePageNavigation(boardParameterDto);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("articles", articles);
-		map.put("pageNavigation", pageNavigation);
-		map.put("pg", boardParameterDto.getPg());
-		map.put("key", boardParameterDto.getKey());
-		map.put("word", boardParameterDto.getWord());
-		
-		
-		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-				
-//		return new ResponseEntity<List<BoardDto>>(boardService.listArticle(boardParameterDto), HttpStatus.OK);
+		return new ResponseEntity<List<BoardDto>>(boardService.listArticle(boardParameterDto), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "게시판 글보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BoardDto.class)
