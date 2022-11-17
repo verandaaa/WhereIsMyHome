@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
+    <b-navbar toggleable="lg">
       <b-navbar-brand href="#">
         <router-link to="/">
           <img
@@ -107,4 +107,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.navbar {
+  height: 65px !important;
+  border-bottom: 1px solid #d3d3d3;
+}
+</style>

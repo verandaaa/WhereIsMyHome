@@ -117,6 +117,16 @@ export default {
       // this.$store.dispatch("getHouse", this.house);
       this.detailHouse(item);
     },
+    priceFilter(price) {
+      price = parseInt(price.replace(",", "")) * 10000;
+      if (price > 100000000) {
+        price = price / 100000000 + "억";
+      } else {
+        price = price / 10000 + "만";
+      }
+      //price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return price;
+    },
     findHouse() {
       let i = 0;
       for (let k = 0; k < this.markers.length; k++) {
@@ -157,7 +167,10 @@ export default {
             const a = document.createElement("a");
             const span = document.createElement("span");
             span.className = "title";
-            span.appendChild(document.createTextNode(item.거래금액 + "만"));
+            //span.appendChild(document.createTextNode(item.거래금액 + "만"));
+            span.appendChild(
+              document.createTextNode(this.priceFilter(item.거래금액))
+            );
             a.appendChild(span);
             content.appendChild(a);
 
