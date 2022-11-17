@@ -1,20 +1,35 @@
 <template>
-  <div style="position: relative">
+  <div style="position: relative; height: calc(100vh - 65px)">
     <!-- <h3 class="underline-orange">
       <b-icon icon="house-fill"></b-icon> House Service
     </h3> -->
     <div>
       <house-map></house-map>
     </div>
-    <div style="position: absolute; top: 15px; right: 20px; z-index: 1">
+    <div style="position: absolute; top: 15px; right: 50px; z-index: 1">
       <house-search-bar></house-search-bar>
     </div>
 
     <!-- <house-detail /> -->
     <div
-      style="position: absolute; top: 0px; left: 0px; z-index: 1; width: 400px"
+      style="
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+        width: 400px;
+        overflow: scroll;
+        height: 100%;
+        background-color: white;
+      "
     >
       <house-detail />
+    </div>
+
+    <div>
+      <house-menu
+        style="position: absolute; top: 200px; right: 50px; z-index: 1"
+      ></house-menu>
     </div>
   </div>
 </template>
@@ -22,6 +37,7 @@
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
 import HouseMap from "@/components/house/HouseMap.vue";
+import HouseMenu from "@/components/house/HouseMenu.vue";
 
 export default {
   name: "AppHouse",
@@ -29,6 +45,7 @@ export default {
     HouseSearchBar,
     HouseDetail,
     HouseMap,
+    HouseMenu,
   },
 };
 </script>

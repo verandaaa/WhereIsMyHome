@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg">
+    <b-navbar>
       <b-navbar-brand href="#">
         <router-link :to="{ name: 'main' }">
           <b-img
@@ -12,7 +12,7 @@
         </router-link>
       </b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar target="nav-collapse"></b-navbar>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
@@ -74,21 +74,19 @@
         </b-navbar-nav>
         <!-- before login -->
         <b-navbar-nav class="ml-auto" v-else>
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <b-icon icon="people" font-scale="2"></b-icon>
-            </template>
-            <b-dropdown-item href="#">
-              <router-link :to="{ name: 'join' }" class="link">
-                <b-icon icon="person-circle"></b-icon> 회원가입
-              </router-link>
-            </b-dropdown-item>
-            <b-dropdown-item href="#">
-              <router-link :to="{ name: 'login' }" class="link">
-                <b-icon icon="key"></b-icon> 로그인
-              </router-link>
-            </b-dropdown-item>
-          </b-nav-item-dropdown>
+          <template #button-content>
+            <b-icon icon="people" font-scale="2"></b-icon>
+          </template>
+          <b-nav-item href="#">
+            <router-link :to="{ name: 'join' }" class="link">
+              <b-icon icon="person-circle"></b-icon> 회원가입
+            </router-link>
+          </b-nav-item>
+          <b-nav-item href="#">
+            <router-link :to="{ name: 'login' }" class="link">
+              <b-icon icon="key"></b-icon> 로그인
+            </router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

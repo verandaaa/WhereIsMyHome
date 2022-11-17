@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: calc(100vh - 65px)">
     <div id="map"></div>
     <div class="button-group">
       <!-- <button @click="displayMarker(markerPositions1)">marker set 1</button>
@@ -204,7 +204,7 @@ export default {
 <style>
 #map {
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .overlay {
