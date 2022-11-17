@@ -59,7 +59,7 @@ public class BoardController {
 		List<BoardDto> articles = boardService.listArticle(boardParameterDto);
 		PageNavigation pageNavigation = boardService.makePageNavigation(boardParameterDto);
 		
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		map.put("articles", articles);
 		map.put("pageNavigation", pageNavigation);
 		map.put("pg", boardParameterDto.getPg());

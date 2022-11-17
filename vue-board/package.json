@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --openssl-legacy-provider",
+    "preserve": "set NODE_OPTIONS=--openssl-legacy-provider\nnpm run -- --fix",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

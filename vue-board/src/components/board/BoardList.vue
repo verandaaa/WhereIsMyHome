@@ -99,7 +99,7 @@ export default {
   created() {
     let param = {
       pg: this.search.pg,
-      spp: 20,
+      spp: 10,
       key: this.key,
       word: this.word,
     };
@@ -125,6 +125,17 @@ export default {
     },
   },
 };
+
+let pages = document.querySelectorAll(".page-link");
+pages.forEach(function (page) {
+  page.addEventListener("click", function () {
+    let form = document.querySelector("#form-param");
+    document.querySelector("#pgno").value =
+      page.parentNode.getAttribute("data-pg");
+    form.setAttribute("action", "${root}/board/list");
+    form.submit();
+  });
+});
 </script>
 
 <style scope>
