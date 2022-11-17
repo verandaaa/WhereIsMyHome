@@ -7,6 +7,8 @@ const houseStore = {
     guguns: [{ value: null, text: "선택하세요" }],
     houses: [],
     house: null,
+    region1depthName: null,
+    region2depthName: null,
   },
   getters: {},
   mutations: {
@@ -19,6 +21,12 @@ const houseStore = {
     CLEAR_APT_LIST(state) {
       state.houses = [];
       state.house = null;
+    },
+    CLEAR_REGION_1DEPTH(state) {
+      state.region1depthName = null;
+    },
+    CLEAR_REGION_2DEPTH(state) {
+      state.region2depthName = null;
     },
     SET_SIDO_LIST(state, sidos) {
       sidos.forEach((sido) => {
@@ -35,6 +43,12 @@ const houseStore = {
     },
     SET_DETAIL_HOUSE(state, house) {
       state.house = house;
+    },
+    SET_REGION_1DEPTH(state, region1depthName) {
+      state.region1depthName = region1depthName;
+    },
+    SET_REGION_2DEPTH(state, region2depthName) {
+      state.region2depthName = region2depthName;
     },
   },
   actions: {
@@ -54,6 +68,7 @@ const houseStore = {
         params,
         ({ data }) => {
           commit("SET_GUGUN_LIST", data);
+          //console.log(data);
         },
         (error) => {
           console.log(error);
@@ -80,6 +95,12 @@ const houseStore = {
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출
       commit("SET_DETAIL_HOUSE", house);
+    },
+    getRegion1depth: ({ commit }, region1depthName) => {
+      commit("SET_REGION_1DEPTH", region1depthName);
+    },
+    getRegion2depth: ({ commit }, region2depthName) => {
+      commit("SET_REGION_2DEPTH", region2depthName);
     },
   },
 };

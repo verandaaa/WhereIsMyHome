@@ -26,10 +26,8 @@
       <house-detail />
     </div>
 
-    <div>
-      <house-menu
-        style="position: absolute; top: 200px; right: 50px; z-index: 1"
-      ></house-menu>
+    <div style="position: absolute; top: 135px; right: 50px; z-index: 1">
+      <house-menu></house-menu>
     </div>
   </div>
 </template>
