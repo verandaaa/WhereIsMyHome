@@ -15,11 +15,14 @@
     <b-row>
       <b-col>
         <b-table
+          id="tbarticle"
           striped
           hover
           :items="articles"
           :fields="fields"
           @row-clicked="viewArticle"
+          :per-page="perPage"
+          :current-page="currentPage"
         >
           <template #cell(subject)="data">
             <router-link
@@ -32,18 +35,32 @@
             </router-link>
           </template>
         </b-table>
+        <b-pagination
+          pills
+          align="center"
+          size="bg"
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="perPage"
+          aria-controls="tbarticle"
+        ></b-pagination>
+        <p class="mt-3">전체페이지: {{ currentPage }} / {{ totalPage() }}</p>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import { listArticle } from "@/api/board";
+// import { listArticle } from "@/api/board";
+import { apiInstance } from "@/api/index.js";
 
 export default {
   name: "BoardList",
+
   data() {
     return {
+      currentPage: 1,
+      perPage: 10,
       articles: [],
       fields: [
         { key: "articleno", label: "글번호", tdClass: "tdClass" },
@@ -55,21 +72,10 @@ export default {
     };
   },
   created() {
-    let param = {
-      pg: 1,
-      spp: 20,
-      key: null,
-      word: null,
-    };
-    listArticle(
-      param,
-      ({ data }) => {
-        this.articles = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    const api = apiInstance();
+    api.get(`/board`).then(({ data }) => {
+      this.articles = data;
+    });
   },
   methods: {
     moveWrite() {
@@ -80,6 +86,15 @@ export default {
         name: "boardview",
         params: { articleno: article.articleno },
       });
+    },
+    totalPage() {
+      return Math.ceil(this.rows / this.perPage);
+    },
+  },
+  computed: {
+    // computed는 잘 안바뀌는 값을 마치 properties(메소드가 아닌 특성값)처럼 쓰기 위해 선언함. 호출 방식도 메서드 방식이 아닌 일반적인 변수와 비슷.
+    rows() {
+      return this.articles.length;
     },
   },
 };

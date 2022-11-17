@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.vue.model.BoardDto;
 import com.ssafy.vue.model.MemberDto;
 
 @Mapper
@@ -15,5 +16,6 @@ public interface MemberMapper {
 	public void saveRefreshToken(Map<String, String> map) throws SQLException;
 	public Object getRefreshToken(String userid) throws SQLException;
 	public void deleteRefreshToken(Map<String, String> map) throws SQLException;
+	public int registUser(MemberDto memberDto) throws SQLException;
 	
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.vue.model.BoardDto;
 import com.ssafy.vue.model.MemberDto;
 import com.ssafy.vue.model.service.JwtServiceImpl;
 import com.ssafy.vue.model.service.MemberService;
@@ -68,6 +69,16 @@ public class MemberController {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@ApiOperation(value = "회원가입", notes = "회원 정보를 입력받가 가입. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PostMapping
+	public ResponseEntity<String> registUser(@RequestBody @ApiParam(value = "회원가입 정보.", required = true) MemberDto memberDto) throws Exception {
+		logger.info("registUser - 호출");
+		if (memberService.registUser(memberDto)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
