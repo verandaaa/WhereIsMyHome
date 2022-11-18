@@ -10,6 +10,12 @@
 		where userid = #{userid} and userpwd = #{userpwd}
 	</select>
 	
+	<select id="idCheck" parameterType="string" resultType="int">
+		select count(userid)
+		from ssafy_member
+		where userid = #{userid}
+	</select>
+	
 	<insert id="registUser" parameterType="memberDto">
 		insert into ssafy_member (userid, username, userpwd, email)
 		values (#{userid}, #{username}, #{userpwd}, #{email})

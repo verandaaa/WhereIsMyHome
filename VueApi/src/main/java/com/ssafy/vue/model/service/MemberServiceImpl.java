@@ -55,4 +55,9 @@ public class MemberServiceImpl implements MemberService {
 		return sqlSession.getMapper(MemberMapper.class).registUser(memberDto) == 1;
 	}
 
+	@Override
+	public int idCheck(String userid) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).idCheck(userid);
+	}
+
 }

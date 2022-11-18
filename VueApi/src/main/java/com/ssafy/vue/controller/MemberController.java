@@ -80,7 +80,22 @@ public class MemberController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
-
+	
+	@ApiOperation(value = "아이디 중복 검사", notes = "중복이 아니라면 0, 중복이라면 1을 반환한다", response = Map.class)
+	@GetMapping("/check/{userid}")
+	public ResponseEntity<String> idCheck(
+			@PathVariable("userid") @ApiParam(value = "체크할 회원의 아이디.", required = true) String userid) {
+		logger.debug("userid : {} ", userid);
+		int cnt;
+		try {
+			cnt = memberService.idCheck(userid);
+			return new ResponseEntity<String>("0", HttpStatus.OK);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("1", HttpStatus.OK);
+		}
+	}
+	
 	@ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
 	@GetMapping("/info/{userid}")
 	public ResponseEntity<Map<String, Object>> getInfo(
