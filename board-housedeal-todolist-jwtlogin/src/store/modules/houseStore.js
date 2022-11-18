@@ -9,6 +9,7 @@ const houseStore = {
     house: null,
     region1depthName: null,
     region2depthName: null,
+    open: false,
   },
   getters: {},
   mutations: {
@@ -28,12 +29,16 @@ const houseStore = {
     CLEAR_REGION_2DEPTH(state) {
       state.region2depthName = null;
     },
+    CLEAR_OPEN(state) {
+      state.open = false;
+    },
     SET_SIDO_LIST(state, sidos) {
       sidos.forEach((sido) => {
         state.sidos.push({ value: sido.sidoCode, text: sido.sidoName });
       });
     },
     SET_GUGUN_LIST(state, guguns) {
+      console.log("SET_GUGUN_LIST도착");
       guguns.forEach((gugun) => {
         state.guguns.push({ value: gugun.gugunCode, text: gugun.gugunName });
       });
@@ -50,6 +55,14 @@ const houseStore = {
     SET_REGION_2DEPTH(state, region2depthName) {
       state.region2depthName = region2depthName;
     },
+    SET_DETAIL_CLOSE(state) {
+      //console.log(state.open);
+      state.open = false;
+      //console.log(state.open);
+    },
+    SET_DETAIL_OPEN(state) {
+      state.open = true;
+    },
   },
   actions: {
     getSido: ({ commit }) => {
@@ -63,12 +76,14 @@ const houseStore = {
       );
     },
     getGugun: ({ commit }, sidoCode) => {
+      console.log("getGugun도착" + sidoCode);
       const params = { sido: sidoCode };
       gugunList(
         params,
         ({ data }) => {
+          //console.log("befere - " + data);
           commit("SET_GUGUN_LIST", data);
-          //console.log(data);
+          //console.log("after - " + data);
         },
         (error) => {
           console.log(error);
@@ -101,6 +116,12 @@ const houseStore = {
     },
     getRegion2depth: ({ commit }, region2depthName) => {
       commit("SET_REGION_2DEPTH", region2depthName);
+    },
+    detailClose: ({ commit }) => {
+      commit("SET_DETAIL_CLOSE");
+    },
+    detailOpen: ({ commit }) => {
+      commit("SET_DETAIL_OPEN");
     },
   },
 };

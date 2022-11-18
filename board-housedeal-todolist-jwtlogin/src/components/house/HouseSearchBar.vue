@@ -37,7 +37,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
     키: 값
     memberStore: memberStore,
     houseStore: houseStore
-  }  
+  }
 */
 const houseStore = "houseStore";
 
@@ -58,23 +58,28 @@ export default {
     ]),
   },
   watch: {
-    region1depthName() {
-      this.sidos.forEach((sido) => {
-        if (sido.text === this.region1depthName) {
-          this.sidoCode = sido.value;
-          this.CLEAR_GUGUN_LIST();
-          if (this.sidoCode) this.getGugun(this.sidoCode);
-        }
-      });
+    sidoCode() {
+      console.log("시도코드 바뀜");
+      this.getGugun(this.sidoCode);
     },
-    region2depthName() {
-      console.log(this.guguns);
-      this.guguns.forEach((gugun) => {
-        if (gugun.text === this.region2depthName) {
-          this.gugunCode = gugun.value;
-          this.searchApt();
-        }
-      });
+    region2depthName(newValue, oldValue) {
+      console.log("new : " + newValue + " / old : " + oldValue);
+      const nvsd = newValue.substring(0, 2);
+      const nvgg = newValue.substring(0, 5);
+      if (!oldValue) oldValue = "00000";
+      const ovsd = oldValue.substring(0, 2);
+
+      if (nvsd !== ovsd) {
+        //도가 달려졌다 -> 시도 달라졌다.
+        console.log("1 : " + this.guguns);
+        this.sidoCode = nvsd;
+        this.gugunList();
+        console.log("6 : " + this.guguns);
+      }
+      //도는 그대로이다 -> 시만 달라졌다.
+      console.log("7 : ");
+      this.gugunCode = nvgg;
+      this.searchApt();
     },
   },
   created() {

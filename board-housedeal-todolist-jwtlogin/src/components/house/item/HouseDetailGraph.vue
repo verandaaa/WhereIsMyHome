@@ -1,5 +1,5 @@
 <template>
-  <div v-if="house">
+  <div>
     이 곳은 그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시
     컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은
     그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시
@@ -15,7 +15,7 @@ import { mapState } from "vuex";
 const houseStore = "houseStore";
 
 export default {
-  name: "HouseGraph",
+  name: "HouseDetailGraph",
   computed: {
     ...mapState(houseStore, ["house"]),
     // house() {
@@ -25,5 +25,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

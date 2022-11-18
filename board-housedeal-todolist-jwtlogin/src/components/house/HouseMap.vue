@@ -15,12 +15,11 @@ export default {
   name: "HouseMap",
   data() {
     return {
-      markers: [],
       overlays: [],
     };
   },
   computed: {
-    ...mapState(houseStore, ["houses"]),
+    ...mapState(houseStore, ["houses", "open"]),
   },
   watch: {
     houses() {
@@ -44,12 +43,13 @@ export default {
       "detailHouse",
       "getRegion1depth",
       "getRegion2depth",
+      "detailOpen",
     ]),
 
     initMap() {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(37.541, 126.986),
+        center: new kakao.maps.LatLng(37.5012863640697, 127.039602741448),
         level: 5,
       };
 
@@ -81,12 +81,15 @@ export default {
       if (status === kakao.maps.services.Status.OK) {
         for (var i = 0; i < result.length; i++) {
           // 행정동의 region_type 값은 'H' 이므로
-          if (result[i].region_type === "H") {
-            let region1depthName = result[i].region_1depth_name;
-            let region2depthName = result[i].region_2depth_name;
+          if (result[i].region_type === "B") {
+            // let region1depthName = result[i].region_1depth_name;
+            // let region2depthName =
+            //   result[i].region_1depth_name + " " + result[i].region_2depth_name;
+            // console.log("!!!!!!!!!!!!!!!!!!!!!" + result[i].code);
+            // console.log("!!!!!!!!!!!!!!!!!!!!!" + result[i].b_code);
 
-            this.getRegion1depth(region1depthName);
-            this.getRegion2depth(region2depthName);
+            // this.getRegion1depth(region1depthName);
+            this.getRegion2depth(result[i].code.substring(0, 5));
             break;
           }
         }
@@ -94,7 +97,7 @@ export default {
     },
     priceFilter(price) {
       price = parseInt(price.replace(",", "")) * 10000;
-      if (price > 100000000) {
+      if (price >= 100000000) {
         price = price / 100000000 + "억";
       } else {
         price = price / 10000 + "만";
@@ -103,12 +106,10 @@ export default {
     },
     findHouse() {
       let i = 0;
-      for (let k = 0; k < this.markers.length; k++) {
-        this.markers[k].setMap(null);
+      for (let k = 0; k < this.overlays.length; k++) {
         this.overlays[k].setMap(null);
       }
 
-      this.markers = [];
       this.overlays = [];
       this.geocoder = new kakao.maps.services.Geocoder();
 
@@ -123,13 +124,6 @@ export default {
           if (status === kakao.maps.services.Status.OK) {
             let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            //console.log(coords);
-
-            var marker = new kakao.maps.Marker({
-              map: this.map,
-              position: coords,
-            });
-
             const content = document.createElement("div");
             content.className = "overlay";
             const a = document.createElement("a");
@@ -143,6 +137,7 @@ export default {
 
             content.onclick = () => {
               this.selectHouse(item);
+              this.detailOpen();
             };
 
             var overlay = new kakao.maps.CustomOverlay({
@@ -153,7 +148,6 @@ export default {
             });
 
             i++;
-            this.markers.push(marker);
             this.overlays.push(overlay);
             if (i == 1) {
               this.map.panTo(coords);

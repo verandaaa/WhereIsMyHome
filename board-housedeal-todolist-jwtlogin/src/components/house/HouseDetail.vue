@@ -1,6 +1,9 @@
 <template>
   <div>
     <div>
+      <house-detail-title></house-detail-title>
+    </div>
+    <div>
       <house-detail-main></house-detail-main>
       <house-detail-graph></house-detail-graph>
       <house-detail-around></house-detail-around>
@@ -19,6 +22,7 @@
 import HouseDetailMain from "@/components/house/item/HouseDetailMain";
 import HouseDetailGraph from "@/components/house/item/HouseDetailGraph";
 import HouseDetailAround from "@/components/house/item/HouseDetailAround";
+import HouseDetailTitle from "@/components/house/item/HouseDetailTitle";
 
 export default {
   name: "HouseDetail",
@@ -26,6 +30,7 @@ export default {
     HouseDetailMain,
     HouseDetailGraph,
     HouseDetailAround,
+    HouseDetailTitle,
   },
   data() {
     return {
