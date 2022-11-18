@@ -1,12 +1,15 @@
 package com.ssafy.vue.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.vue.model.HouseInfoDto;
+import com.ssafy.vue.model.HouseParameterDto;
 import com.ssafy.vue.model.SidoGugunCodeDto;
 import com.ssafy.vue.model.mapper.HouseMapMapper;
 
@@ -34,6 +37,12 @@ public class HouseMapServiceImpl implements HouseMapService {
 	@Override
 	public List<HouseInfoDto> getAptInDong(String dong) throws Exception {
 		return sqlSession.getMapper(HouseMapMapper.class).getAptInDong(dong);
+	}
+
+	@Override
+	public List<HouseInfoDto> getAptList(HouseParameterDto houseParameterDto) throws Exception {
+		
+		return sqlSession.getMapper(HouseMapMapper.class).getAptList(houseParameterDto);
 	}
 
 }

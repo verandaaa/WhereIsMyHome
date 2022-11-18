@@ -30,6 +30,8 @@ public class HouseInfoDto {
 	private String img;
 	@ApiModelProperty(value = "매매가격")
 	private String recentPrice;
+	@ApiModelProperty(value = "매매가격")
+	private String dealAmount;
 
 	public int getAptCode() {
 		return aptCode;
@@ -125,5 +127,13 @@ public class HouseInfoDto {
 
 	public void setRecentPrice(String recentPrice) {
 		this.recentPrice = recentPrice;
+	}
+	
+	public String getDealAmount() {
+		return dealAmount;
+	}
+	
+	public void setDealAmount(String dealAmount) {
+		this.dealAmount = dealAmount;
 	}
 }

@@ -90,6 +90,8 @@ const houseStore = {
         }
       );
     },
+
+    // # 공공데이터 API 이용
     getHouseList: ({ commit }, gugunCode) => {
       const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
       const params = {
@@ -107,6 +109,28 @@ const houseStore = {
         }
       );
     },
+
+    // # DB 이용
+    // getHouseList: ({ commit }, gugunCode) => {
+    //   // const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
+    //   const params = {
+    //     gugunCode: gugunCode,
+    //     // DEAL_YMD: "202207",
+    //     // serviceKey: decodeURIComponent(SERVICE_KEY),
+    //   };
+    //   houseList(
+    //     params,
+    //     ({ data }) => {
+    //       console.log("왔니?");
+    //       console.log(data);
+    //       commit("SET_HOUSE_LIST", data);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // },
+
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출
       commit("SET_DETAIL_HOUSE", house);

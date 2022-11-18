@@ -143,7 +143,7 @@ export default {
         return;
       } else {
         idCheck(this.user.userid, ({ data }) => {
-          if (data == "0") {
+          if (data == 1) {
             console.log(data);
             this.msg = this.user.userid + `는 사용할 수 없습니다.`;
             this.isSuccess = false;
