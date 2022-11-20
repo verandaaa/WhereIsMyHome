@@ -3,8 +3,8 @@ package com.ssafy.vue.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "SidoGugunCodeDto : 시도, 구군정보", description = "시도, 구군의 이름을 나타낸다.")
-public class SidoGugunCodeDto {
+@ApiModel(value = "SidoGugunCodeDto : 시도, 구군, 동정보", description = "시도, 구군, 동의 이름을 나타낸다.")
+public class SidoGugunDongCodeDto {
 
 	@ApiModelProperty(value = "시도코드")
 	private String sidoCode;
@@ -14,6 +14,10 @@ public class SidoGugunCodeDto {
 	private String gugunCode;
 	@ApiModelProperty(value = "구군이름")
 	private String gugunName;
+	@ApiModelProperty(value = "동코드")
+	private String dongCode;
+	@ApiModelProperty(value = "동이름")
+	private String dongName;
 
 	public String getSidoCode() {
 		return sidoCode;
@@ -46,4 +50,21 @@ public class SidoGugunCodeDto {
 	public void setGugunName(String gugunName) {
 		this.gugunName = gugunName;
 	}
+
+	public String getDongCode() {
+		return dongCode;
+	}
+
+	public void setDongCode(String dongCode) {
+		this.dongCode = dongCode;
+	}
+
+	public String getDongName() {
+		return dongName;
+	}
+
+	public void setDongName(String dongName) {
+		this.dongName = dongName;
+	}
+
 }

@@ -1,0 +1,28 @@
+# schema, table, data Export / Import 하는 방법
+
+
+#### Export ####
+mysql workbench 상단 Server >
+
+Data Export >
+
+table을 선택 >
+
+Export Options 에 Export to Self-Contained File 을 선택하고 sql 저장 위치 선택 >
+
+StartExport 한다면 저장한 위치에 sql 파일이 생성된다.
+
+
+#### Import #### 
+
+mysql workbench 상단 Server >
+
+Data Import >
+
+Import from Self-Contained File >
+
+저장했던 sql 파일 선택>
+
+Default Target Schema 에 스키마 지정 (New 로 새로 생성 가능) >
+
+StartExport 클릭하면 지정한 Schema 에 Table 추가됨

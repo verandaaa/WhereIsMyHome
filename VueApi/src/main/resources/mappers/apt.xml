@@ -4,24 +4,26 @@
 
 <mapper namespace="com.ssafy.vue.model.mapper.HouseMapMapper">
 
-	<select id="getSido" resultType="sidoGugunCodeDto">
+	<select id="getSido" resultType="SidoGugunDongCodeDto">
 		select left(sidoCode,2) sidoCode, sidoName
 		from sidocode
 		order by sidoCode
 	</select>
 	
-	<select id="getGugunInSido" parameterType="string" resultType="sidoGugunCodeDto">
+	<select id="getGugunInSido" parameterType="string" resultType="SidoGugunDongCodeDto">
 		select left(gugunCode,5) gugunCode, gugunName
 		from guguncode
 		where left(gugunCode,2) = #{sido}
 		order by gugunCode
 	</select>
 	
-	<select id="getDongInGugun" parameterType="string" resultType="houseInfoDto">
-		select distinct dongName, dongCode
-		from houseinfo
-		where left(dongCode, 5) = #{gugun}
-		order by dongName
+	<select id="getDongInGugun" parameterType="string" resultType="SidoGugunDongCodeDto">
+		select sidoName, gugunName, dongCode, dongName 
+		from dongcode 
+		where gugunName is not null
+		and dongName is not null
+		and left(dongCode, 5) = #{gugun}
+		order by dongName;
 	</select>
 	
 	<select id="getAptInDong" parameterType="string" resultType="houseInfoDto">
@@ -35,13 +37,15 @@
 		where dongCode = #{dong} 
 		order by aptName
 	</select>
-	
-<!-- 		,dealYear, dealMonth, dealDay, area, floor -->
 
+	<!-- 특정 동의 아파트 코드별 가장 최근 매물에 대한 정보만 불러옵니다 -->	
 	<select id="getAptList" parameterType="HouseParameterDto" resultType="houseInfoDto">
-		select hi.aptCode, aptName, dongCode, dongName, buildYear, jibun, lat, lng, dealAmount
-		from houseinfo hi, housedeal hd
-		where hi.aptcode = hd.aptcode and substr(dongCode, 1,5) = #{gugunCode};
+		select hi.aptCode, hi.aptName, hi.buildYear, hi.dongName, hi.roadName, hi.jibun, hi.lng, hi.lat, hi.dongCode,
+		hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area, hd.floor, max(hd.dealDate) dealDate
+		from housedeal hd, houseinfo hi 
+		where hi.dongCode = #{dongCode} 
+		and hd.aptCode = hi.aptCode
+		group by hd.aptCode
 	</select>
 	
 	

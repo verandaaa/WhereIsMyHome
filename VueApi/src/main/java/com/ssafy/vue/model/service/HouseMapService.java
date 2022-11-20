@@ -5,13 +5,13 @@ import java.util.Map;
 
 import com.ssafy.vue.model.HouseInfoDto;
 import com.ssafy.vue.model.HouseParameterDto;
-import com.ssafy.vue.model.SidoGugunCodeDto;
+import com.ssafy.vue.model.SidoGugunDongCodeDto;
 
 public interface HouseMapService {
 
-	List<SidoGugunCodeDto> getSido() throws Exception;
-	List<SidoGugunCodeDto> getGugunInSido(String sido) throws Exception;
-	List<HouseInfoDto> getDongInGugun(String gugun) throws Exception;
+	List<SidoGugunDongCodeDto> getSido() throws Exception;
+	List<SidoGugunDongCodeDto> getGugunInSido(String sido) throws Exception;
+	List<SidoGugunDongCodeDto> getDongInGugun(String gugun) throws Exception;
 	List<HouseInfoDto> getAptInDong(String dong) throws Exception;
 	List<HouseInfoDto> getAptList(HouseParameterDto houseParmeterDto) throws Exception;
 	

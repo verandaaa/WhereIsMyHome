@@ -1,10 +1,11 @@
-import { sidoList, gugunList, houseList } from "@/api/house.js";
+import { sidoList, gugunList, dongList, houseList } from "@/api/house.js";
 
 const houseStore = {
   namespaced: true,
   state: {
     sidos: [{ value: null, text: "선택하세요" }],
     guguns: [{ value: null, text: "선택하세요" }],
+    dongs: [{ value: null, text: "선택하세요" }],
     houses: [],
     house: null,
     region1depthName: null,
@@ -18,6 +19,9 @@ const houseStore = {
     },
     CLEAR_GUGUN_LIST(state) {
       state.guguns = [{ value: null, text: "선택하세요" }];
+    },
+    CLEAR_DONG_LIST(state) {
+      state.dongs = [{ value: null, text: "선택하세요" }];
     },
     CLEAR_APT_LIST(state) {
       state.houses = [];
@@ -41,6 +45,12 @@ const houseStore = {
       console.log("SET_GUGUN_LIST도착");
       guguns.forEach((gugun) => {
         state.guguns.push({ value: gugun.gugunCode, text: gugun.gugunName });
+      });
+    },
+    SET_DONG_LIST(state, dongs) {
+      console.log("SET_DONG_LIST도착");
+      dongs.forEach((dong) => {
+        state.dongs.push({ value: dong.dongCode, text: dong.dongName });
       });
     },
     SET_HOUSE_LIST(state, houses) {
@@ -90,19 +100,15 @@ const houseStore = {
         }
       );
     },
-
-    // # 공공데이터 API 이용
-    getHouseList: ({ commit }, gugunCode) => {
-      const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
-      const params = {
-        LAWD_CD: gugunCode,
-        DEAL_YMD: "202207",
-        serviceKey: decodeURIComponent(SERVICE_KEY),
-      };
-      houseList(
+    getDong: ({ commit }, gugunCode) => {
+      console.log("getDong도착" + gugunCode);
+      const params = { gugun: gugunCode };
+      dongList(
         params,
         ({ data }) => {
-          commit("SET_HOUSE_LIST", data.response.body.items.item);
+          //console.log("befere - " + data);
+          commit("SET_DONG_LIST", data);
+          //console.log("after - " + data);
         },
         (error) => {
           console.log(error);
@@ -110,26 +116,45 @@ const houseStore = {
       );
     },
 
-    // # DB 이용
+    // # 공공데이터 API 이용
     // getHouseList: ({ commit }, gugunCode) => {
-    //   // const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
+    //   const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
     //   const params = {
-    //     gugunCode: gugunCode,
-    //     // DEAL_YMD: "202207",
-    //     // serviceKey: decodeURIComponent(SERVICE_KEY),
+    //     LAWD_CD: gugunCode,
+    //     DEAL_YMD: "202207",
+    //     serviceKey: decodeURIComponent(SERVICE_KEY),
     //   };
     //   houseList(
     //     params,
     //     ({ data }) => {
-    //       console.log("왔니?");
-    //       console.log(data);
-    //       commit("SET_HOUSE_LIST", data);
+    //       commit("SET_HOUSE_LIST", data.response.body.items.item);
     //     },
     //     (error) => {
     //       console.log(error);
     //     }
     //   );
     // },
+
+    // # DB 이용
+    getHouseList: ({ commit }, dongCode) => {
+      // const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
+      const params = {
+        dongCode: dongCode,
+        // DEAL_YMD: "202207",
+        // serviceKey: decodeURIComponent(SERVICE_KEY),
+      };
+      houseList(
+        params,
+        ({ data }) => {
+          console.log("DB에서 동코드에 해당하는 최근 매물 목록 불러옴");
+          console.log(data);
+          commit("SET_HOUSE_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
 
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출

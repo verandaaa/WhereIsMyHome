@@ -1,7 +1,8 @@
-import { apiInstance, houseInstance } from "./index.js";
+import { apiInstance } from "./index.js";
+// import { apiInstance, houseInstance } from "./index.js";
 
 const api = apiInstance();
-const house = houseInstance();
+// const house = houseInstance();
 
 function sidoList(success, fail) {
   api.get(`/map/sido`).then(success).catch(fail);
@@ -11,14 +12,18 @@ function gugunList(params, success, fail) {
   api.get(`/map/gugun`, { params: params }).then(success).catch(fail);
 }
 
-// # 공공데이터 API 이용
-function houseList(params, success, fail) {
-  house.get(``, { params: params }).then(success).catch(fail);
+function dongList(params, success, fail) {
+  api.get(`/map/dong`, { params: params }).then(success).catch(fail);
 }
 
-// # DB 이용
+// # 공공데이터 API 이용
 // function houseList(params, success, fail) {
-//   api.get(`/map/house`, { params: params }).then(success).catch(fail);
+//   house.get(``, { params: params }).then(success).catch(fail);
 // }
 
-export { sidoList, gugunList, houseList };
+// # DB 이용
+function houseList(params, success, fail) {
+  api.get(`/map/house`, { params: params }).then(success).catch(fail);
+}
+
+export { sidoList, gugunList, dongList, houseList };

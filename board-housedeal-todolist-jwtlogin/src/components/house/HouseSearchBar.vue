@@ -17,7 +17,14 @@
         ></b-form-select>
       </b-col>
       <b-col>
-        <b-form-select v-model="gugunCode" :options="guguns"></b-form-select>
+        <b-form-select
+          v-model="gugunCode"
+          :options="guguns"
+          @change="dongList"
+        ></b-form-select>
+      </b-col>
+      <b-col>
+        <b-form-select v-model="dongCode" :options="dongs"></b-form-select>
       </b-col>
       <b-col>
         <b-button @click="searchApt" variant="primary">검색</b-button>
@@ -47,12 +54,14 @@ export default {
     return {
       sidoCode: null,
       gugunCode: null,
+      dongCode: null,
     };
   },
   computed: {
     ...mapState(houseStore, [
       "sidos",
       "guguns",
+      "dongs",
       "region1depthName",
       "region2depthName",
     ]),
@@ -89,10 +98,16 @@ export default {
     this.CLEAR_REGION_2DEPTH();
   },
   methods: {
-    ...mapActions(houseStore, ["getSido", "getGugun", "getHouseList"]),
+    ...mapActions(houseStore, [
+      "getSido",
+      "getGugun",
+      "getDong",
+      "getHouseList",
+    ]),
     ...mapMutations(houseStore, [
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
+      "CLEAR_DONG_LIST",
       "CLEAR_REGION_1DEPTH",
       "CLEAR_REGION_2DEPTH",
     ]),
@@ -102,8 +117,14 @@ export default {
       this.gugunCode = null;
       if (this.sidoCode) this.getGugun(this.sidoCode);
     },
+    dongList() {
+      this.CLEAR_DONG_LIST();
+      console.log("dongList 도착");
+      this.dongCode = null;
+      if (this.gugunCode) this.getDong(this.gugunCode);
+    },
     searchApt() {
-      if (this.gugunCode) this.getHouseList(this.gugunCode);
+      if (this.dongCode) this.getHouseList(this.dongCode);
     },
   },
 };

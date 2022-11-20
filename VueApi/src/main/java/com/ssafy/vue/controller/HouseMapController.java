@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.vue.model.HouseInfoDto;
 import com.ssafy.vue.model.HouseParameterDto;
-import com.ssafy.vue.model.SidoGugunCodeDto;
+import com.ssafy.vue.model.SidoGugunDongCodeDto;
 import com.ssafy.vue.model.service.HouseMapService;
 
 import io.swagger.annotations.Api;
@@ -37,20 +37,28 @@ public class HouseMapController {
 
 	@ApiOperation(value = "시도 정보", notes = "전국의 시도를 반환한다.", response = List.class)
 	@GetMapping("/sido")
-	public ResponseEntity<List<SidoGugunCodeDto>> sido() throws Exception {
+	public ResponseEntity<List<SidoGugunDongCodeDto>> sido() throws Exception {
 		logger.info("sido - 호출");
-		return new ResponseEntity<List<SidoGugunCodeDto>>(houseMapService.getSido(), HttpStatus.OK);
+		return new ResponseEntity<List<SidoGugunDongCodeDto>>(houseMapService.getSido(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "구군 정보", notes = "전국의 구군을 반환한다.", response = List.class)
+	@ApiOperation(value = "구군 정보", notes = "시도에 해당하는 구군을 반환한다.", response = List.class)
 	@GetMapping("/gugun")
-	public ResponseEntity<List<SidoGugunCodeDto>> gugun(
+	public ResponseEntity<List<SidoGugunDongCodeDto>> gugun(
 			@RequestParam("sido") @ApiParam(value = "시도코드.", required = true) String sido) throws Exception {
-		logger.info("gugun - 호출");
-		return new ResponseEntity<List<SidoGugunCodeDto>>(houseMapService.getGugunInSido(sido), HttpStatus.OK);
+		logger.info("gugun - 호출 {}: sidoCode: ", sido);
+		return new ResponseEntity<List<SidoGugunDongCodeDto>>(houseMapService.getGugunInSido(sido), HttpStatus.OK);
 	}
-	 
-	@ApiOperation(value = "아파트 목록", notes = "지역코드와 매매계약월을 기준으로 아파트 목록을 반환한다.", response = List.class)
+	
+	@ApiOperation(value = "동정보", notes = "구군에 해당하는 동을 반환한다.", response = List.class)
+	@GetMapping("/dong")
+	public ResponseEntity<List<SidoGugunDongCodeDto>> dong(
+			@RequestParam("gugun") @ApiParam(value = "동코드.", required = true) String gugun) throws Exception {
+		logger.info("dong - 호출  {} gugunCode:", gugun);
+		return new ResponseEntity<List<SidoGugunDongCodeDto>>(houseMapService.getDongInGugun(gugun), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "아파트 목록", notes = "구군코드를 기준으로 아파트별 최근 거래목록을 반환한다.", response = List.class)
 	@GetMapping("/house")
 	public ResponseEntity<List<HouseInfoDto>> aptList(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) HouseParameterDto houseParameterDto) throws Exception {	
 		logger.info("house - 호출 {} ", houseParameterDto);
@@ -58,10 +66,6 @@ public class HouseMapController {
 		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getAptList(houseParameterDto), HttpStatus.OK);
 	}
 
-	@GetMapping("/dong")
-	public ResponseEntity<List<HouseInfoDto>> dong(@RequestParam("gugun") String gugun) throws Exception {
-		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getDongInGugun(gugun), HttpStatus.OK);
-	}
 	
 	@GetMapping("/apt")
 	public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("dong") String dong) throws Exception {

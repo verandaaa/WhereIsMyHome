@@ -104,6 +104,7 @@ export default {
       }
       return price;
     },
+
     findHouse() {
       let i = 0;
       for (let k = 0; k < this.overlays.length; k++) {
@@ -114,48 +115,92 @@ export default {
       this.geocoder = new kakao.maps.services.Geocoder();
 
       this.houses.forEach((item) => {
-        let adress =
-          item.도로명 +
-          " " +
-          item.도로명건물본번호코드 +
-          " " +
-          item.도로명건물부번호코드;
-        this.geocoder.addressSearch(adress, (result, status) => {
-          if (status === kakao.maps.services.Status.OK) {
-            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        let coords = new kakao.maps.LatLng(item.lat, item.lng);
 
-            const content = document.createElement("div");
-            content.className = "overlay";
-            const a = document.createElement("a");
-            const span = document.createElement("span");
-            span.className = "title";
-            span.appendChild(
-              document.createTextNode(this.priceFilter(item.거래금액))
-            );
-            a.appendChild(span);
-            content.appendChild(a);
+        const content = document.createElement("div");
+        content.className = "overlay";
+        const a = document.createElement("a");
+        const span = document.createElement("span");
+        span.className = "title";
+        span.appendChild(
+          document.createTextNode(this.priceFilter(item.dealAmount))
+        );
+        a.appendChild(span);
+        content.appendChild(a);
 
-            content.onclick = () => {
-              this.selectHouse(item);
-              this.detailOpen();
-            };
+        content.onclick = () => {
+          this.selectHouse(item);
+          this.detailOpen();
+        };
 
-            var overlay = new kakao.maps.CustomOverlay({
-              map: this.map,
-              position: coords,
-              content: content,
-              yAnchor: 1,
-            });
-
-            i++;
-            this.overlays.push(overlay);
-            if (i == 1) {
-              this.map.panTo(coords);
-            }
-          }
+        var overlay = new kakao.maps.CustomOverlay({
+          map: this.map,
+          position: coords,
+          content: content,
+          yAnchor: 1,
         });
-      });
-    },
+
+        i++;
+        this.overlays.push(overlay);
+        if (i == 1) {
+          this.map.panTo(coords);
+        }
+      }); // foreach
+    }, // findhouse
+
+    // # 기존 버전(도로명 주소로 위도경도 얻어서 오버레이 생성)
+    // findHouse() {
+    //   let i = 0;
+    //   for (let k = 0; k < this.overlays.length; k++) {
+    //     this.overlays[k].setMap(null);
+    //   }
+
+    //   this.overlays = [];
+    //   this.geocoder = new kakao.maps.services.Geocoder();
+
+    //   this.houses.forEach((item) => {
+    //     let adress =
+    //       item.도로명 +
+    //       " " +
+    //       item.도로명건물본번호코드 +
+    //       " " +
+    //       item.도로명건물부번호코드;
+    //     this.geocoder.addressSearch(adress, (result, status) => {
+    //       if (status === kakao.maps.services.Status.OK) {
+    //         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+    //         const content = document.createElement("div");
+    //         content.className = "overlay";
+    //         const a = document.createElement("a");
+    //         const span = document.createElement("span");
+    //         span.className = "title";
+    //         span.appendChild(
+    //           document.createTextNode(this.priceFilter(item.거래금액))
+    //         );
+    //         a.appendChild(span);
+    //         content.appendChild(a);
+
+    //         content.onclick = () => {
+    //           this.selectHouse(item);
+    //           this.detailOpen();
+    //         };
+
+    //         var overlay = new kakao.maps.CustomOverlay({
+    //           map: this.map,
+    //           position: coords,
+    //           content: content,
+    //           yAnchor: 1,
+    //         });
+
+    //         i++;
+    //         this.overlays.push(overlay);
+    //         if (i == 1) {
+    //           this.map.panTo(coords);
+    //         }
+    //       } // if
+    //     }); //addressSearch
+    //   }); //foreach
+    // }, // findhouse
   },
 };
 </script>

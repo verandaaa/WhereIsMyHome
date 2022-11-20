@@ -8,14 +8,14 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.vue.model.HouseInfoDto;
 import com.ssafy.vue.model.HouseParameterDto;
-import com.ssafy.vue.model.SidoGugunCodeDto;
+import com.ssafy.vue.model.SidoGugunDongCodeDto;
 
 @Mapper
 public interface HouseMapMapper {
 
-	List<SidoGugunCodeDto> getSido() throws SQLException;
-	List<SidoGugunCodeDto> getGugunInSido(String sido) throws SQLException;
-	List<HouseInfoDto> getDongInGugun(String gugun) throws SQLException;
+	List<SidoGugunDongCodeDto> getSido() throws SQLException;
+	List<SidoGugunDongCodeDto> getGugunInSido(String sido) throws SQLException;
+	List<SidoGugunDongCodeDto> getDongInGugun(String gugun) throws SQLException;
 	List<HouseInfoDto> getAptInDong(String dong) throws SQLException;
 	List<HouseInfoDto> getAptList(HouseParameterDto houseParameterDto) throws SQLException;
 	
