@@ -48,6 +48,15 @@
 		group by hd.aptCode
 	</select>
 	
+	<select id="getAptList2" parameterType="HouseParameterDto" resultType="houseInfoDto">
+		select hi.aptCode, hi.aptName, hi.buildYear, hi.dongName, hi.roadName, hi.jibun, hi.lng, hi.lat, hi.dongCode,
+		hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area, hd.floor, max(hd.dealDate) dealDate
+		from housedeal hd, houseinfo hi 
+		where hi.aptName like concat ('%', #{aptName}, '%')
+		and hd.aptCode = hi.aptCode
+		group by hd.aptCode
+	</select>
+	
 	
 	
 </mapper>

@@ -1,33 +1,71 @@
 <template>
   <div class="box-wrap">
-    <b-modal id="modal-1" title="BootstrapVue" @ok="searchApt">
-      <div class="item">
-        <b-form-select
-          v-model="sidoCode"
-          :options="sidos"
-          @change="gugunList"
-          style="width: 100px; font-size: 13px; font-weight: 700"
-        ></b-form-select>
+    <b-form-group label="검색 방법을 선택하세요" v-slot="{ ariaDescribedby }">
+      <b-form-radio-group
+        id="btn-radios-2"
+        v-model="selected"
+        :options="options"
+        :aria-describedby="ariaDescribedby"
+        button-variant="outline-primary"
+        name="radio-btn-outline"
+        buttons
+      ></b-form-radio-group>
+    </b-form-group>
+
+    <!-- <b-form-group label="검색 방법을 선택하세요" v-slot="{ ariaDescribedby }">
+      <b-form-radio
+        v-model="selected"
+        :aria-describedby="ariaDescribedby"
+        name="some-radios"
+        value="A"
+        >동 검색</b-form-radio
+      >
+      <b-form-radio
+        v-model="selected"
+        :aria-describedby="ariaDescribedby"
+        name="some-radios"
+        value="B"
+        >이름 검색</b-form-radio
+      >
+    </b-form-group> -->
+
+    <div v-if="selected === 'A'">
+      <div class="h-container">
+        <div class="item">
+          <b-form-select
+            v-model="sidoCode"
+            :options="sidos"
+            @change="gugunList"
+            style="width: 120px; font-size: 16px; font-weight: 700"
+          ></b-form-select>
+        </div>
+        <div class="item">
+          <b-form-select
+            v-model="gugunCode"
+            :options="guguns"
+            @change="dongList"
+            style="width: 120px; font-size: 16px; font-weight: 700"
+          ></b-form-select>
+        </div>
+        <div class="item">
+          <b-form-select
+            v-model="dongCode"
+            :options="dongs"
+            style="width: 120px; font-size: 16px; font-weight: 700"
+          ></b-form-select>
+        </div>
       </div>
-      <div class="item">
-        <b-form-select
-          v-model="gugunCode"
-          :options="guguns"
-          @change="dongList"
-          style="width: 100px; font-size: 13px; font-weight: 700"
-        ></b-form-select>
+      <div><button @click="searchApt">검색</button></div>
+    </div>
+    <div v-else>
+      <div>
+        <b-form-input
+          v-model="aptName"
+          @keyup="gal"
+          placeholder="아파트 이름"
+        ></b-form-input>
+        <button @click="searchApt2">검색</button>
       </div>
-      <div class="item">
-        <b-form-select
-          v-model="dongCode"
-          :options="dongs"
-          style="width: 100px; font-size: 13px; font-weight: 700"
-        ></b-form-select>
-      </div>
-    </b-modal>
-    <div class="test" v-b-modal.modal-1>
-      {{ find1(sidoCode) }} {{ find2(gugunCode) }} {{ find3(dongCode) }}
-      <button class="modal-btn">검색</button>
     </div>
   </div>
 </template>
@@ -44,46 +82,20 @@ export default {
       sidoCode: null,
       gugunCode: null,
       dongCode: null,
+      aptName: "",
+      selected: "radio1",
+      options: [
+        { text: "주소 검색", value: "A" },
+        { text: "아파트 검색", value: "B" },
+      ],
     };
   },
   computed: {
-    ...mapState(houseStore, [
-      "sidos",
-      "guguns",
-      "dongs",
-      "region1depthName",
-      "region2depthName",
-    ]),
-  },
-  watch: {
-    region2depthName(newValue, oldValue) {
-      console.log("new : " + newValue + " / old : " + oldValue);
-      const nvsd = newValue.substring(0, 2);
-      const nvgg = newValue.substring(0, 5);
-      const nvd = newValue;
-      if (!oldValue) oldValue = "0000000000";
-      const ovsd = oldValue.substring(0, 2);
-      const ovgg = oldValue.substring(0, 5);
-
-      if (nvsd !== ovsd) {
-        this.sidoCode = nvsd;
-        this.gugunList();
-      }
-      if (nvgg !== ovgg) {
-        this.gugunCode = nvgg;
-        this.dongList();
-      }
-      this.dongCode = nvd;
-      this.searchApt();
-    },
+    ...mapState(houseStore, ["sidos", "guguns", "dongs"]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
     this.getSido();
-    this.CLEAR_REGION_1DEPTH();
-    this.CLEAR_REGION_2DEPTH();
-    // console.log("-----------------");
-    // console.log(this.sidos);
   },
   methods: {
     ...mapActions(houseStore, [
@@ -91,43 +103,34 @@ export default {
       "getGugun",
       "getDong",
       "getHouseList",
+      "getHouseList2",
     ]),
     ...mapMutations(houseStore, [
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
       "CLEAR_DONG_LIST",
-      "CLEAR_REGION_1DEPTH",
-      "CLEAR_REGION_2DEPTH",
     ]),
 
     gugunList() {
       this.CLEAR_GUGUN_LIST();
       this.gugunCode = null;
+      this.CLEAR_DONG_LIST();
+      this.dongCode = null;
       if (this.sidoCode) this.getGugun(this.sidoCode);
     },
     dongList() {
       this.CLEAR_DONG_LIST();
-      console.log("dongList 도착");
       this.dongCode = null;
       if (this.gugunCode) this.getDong(this.gugunCode);
     },
     searchApt() {
       if (this.dongCode) this.getHouseList(this.dongCode);
     },
-    find1(sidoCode) {
-      for (let i = 0; i < this.sidos.length; i++) {
-        if (this.sidos[i].value === sidoCode) return this.sidos[i].text;
-      }
+    searchApt2() {
+      if (this.aptName) this.getHouseList2(this.aptName);
     },
-    find2(gugunCode) {
-      for (let i = 0; i < this.guguns.length; i++) {
-        if (this.guguns[i].value === gugunCode) return this.guguns[i].text;
-      }
-    },
-    find3(dongCode) {
-      for (let i = 0; i < this.dongs.length; i++) {
-        if (this.dongs[i].value === dongCode) return this.dongs[i].text;
-      }
+    gal() {
+      console.log(this.aptName);
     },
   },
 };
@@ -135,10 +138,9 @@ export default {
 
 <style scoped>
 .h-container {
-  padding: 5px 20px;
-  border-radius: 50px;
-  background-color: white;
-  border: 1.5px solid gray;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
 }
 .h-container:after {
   clear: both;
@@ -154,19 +156,9 @@ export default {
   float: right;
   border-right: none;
 }
-
-.test {
-  padding: 5px 10px;
-  font-size: 14px;
-  border-radius: 50px;
+.box-wrap {
   background-color: white;
-  border: 1.5px solid gray;
-  font-weight: bold;
-}
-.modal-btn {
-  border: 1px solid #d3d3d3;
-  background-color: white;
-  border-radius: 15px;
-  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 10px;
 }
 </style>

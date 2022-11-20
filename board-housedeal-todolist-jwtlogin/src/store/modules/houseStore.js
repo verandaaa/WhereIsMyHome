@@ -1,4 +1,10 @@
-import { sidoList, gugunList, dongList, houseList } from "@/api/house.js";
+import {
+  sidoList,
+  gugunList,
+  dongList,
+  houseList,
+  houseList2,
+} from "@/api/house.js";
 
 const houseStore = {
   namespaced: true,
@@ -11,6 +17,7 @@ const houseStore = {
     region1depthName: null,
     region2depthName: null,
     open: false,
+    addressName: null,
   },
   getters: {},
   mutations: {
@@ -64,6 +71,9 @@ const houseStore = {
     },
     SET_REGION_2DEPTH(state, region2depthName) {
       state.region2depthName = region2depthName;
+    },
+    SET_ADDRESS_NAME(state, addressName) {
+      state.addressName = addressName;
     },
     SET_DETAIL_CLOSE(state) {
       //console.log(state.open);
@@ -155,6 +165,20 @@ const houseStore = {
         }
       );
     },
+    getHouseList2: ({ commit }, aptName) => {
+      const params = {
+        aptName: aptName,
+      };
+      houseList2(
+        params,
+        ({ data }) => {
+          commit("SET_HOUSE_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
 
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출
@@ -165,6 +189,9 @@ const houseStore = {
     },
     getRegion2depth: ({ commit }, region2depthName) => {
       commit("SET_REGION_2DEPTH", region2depthName);
+    },
+    getAddressName: ({ commit }, addressName) => {
+      commit("SET_ADDRESS_NAME", addressName);
     },
     detailClose: ({ commit }) => {
       commit("SET_DETAIL_CLOSE");

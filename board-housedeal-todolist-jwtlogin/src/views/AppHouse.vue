@@ -1,8 +1,5 @@
 <template>
   <div style="position: relative; height: calc(100vh - 60px)">
-    <!-- <h3 class="underline-orange">
-      <b-icon icon="house-fill"></b-icon> House Service
-    </h3> -->
     <div>
       <house-map></house-map>
     </div>
@@ -13,6 +10,18 @@
         left: 50%;
         transform: translate(-50%, 0);
         z-index: 1;
+      "
+    >
+      <house-current-adress></house-current-adress>
+    </div>
+
+    <div
+      style="
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+        width: 380px;
       "
     >
       <house-search-bar></house-search-bar>
@@ -30,7 +39,7 @@
         width: 400px;
         height: 100%;
         background-color: white;
-        <!-- border: 2px solid red; -->
+        border-right: 1.5px solid #d3d3d3;
       "
     >
       <house-detail />
@@ -46,6 +55,7 @@ import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
 import HouseMap from "@/components/house/HouseMap.vue";
 import HouseMenu from "@/components/house/HouseMenu.vue";
+import HouseCurrentAdress from "@/components/house/HouseCurrentAdress.vue";
 
 import { mapState, mapMutations } from "vuex";
 
@@ -58,6 +68,7 @@ export default {
     HouseDetail,
     HouseMap,
     HouseMenu,
+    HouseCurrentAdress,
   },
   computed: {
     ...mapState(houseStore, ["open"]),

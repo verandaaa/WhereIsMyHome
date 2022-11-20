@@ -44,13 +44,14 @@ export default {
       "getRegion1depth",
       "getRegion2depth",
       "detailOpen",
+      "getAddressName",
     ]),
 
     initMap() {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(37.5012863640697, 127.039602741448),
-        level: 5,
+        level: 3,
       };
 
       //지도 객체를 등록합니다.
@@ -93,15 +94,8 @@ export default {
         for (var i = 0; i < result.length; i++) {
           // 행정동의 region_type 값은 'H' 이므로
           if (result[i].region_type === "B") {
-            // let region1depthName = result[i].region_1depth_name;
-            // let region2depthName =
-            //   result[i].region_1depth_name + " " + result[i].region_2depth_name;
-            // console.log("!!!!!!!!!!!!!!!!!!!!!" + result[i].code);
-            // console.log("!!!!!!!!!!!!!!!!!!!!!" + result[i].b_code);
-
-            // this.getRegion1depth(region1depthName);
-            //alert(result[i].code);
-            // this.getRegion2depth(result[i].code.substring(0, 5)); //구군까지
+            // console.log(result[i].address_name);
+            this.getAddressName(result[i].address_name);
             this.getRegion2depth(result[i].code); //동까지
             break;
           }
@@ -111,9 +105,9 @@ export default {
     priceFilter(price) {
       price = parseInt(price.replace(",", "")) * 10000;
       if (price >= 100000000) {
-        price = price / 100000000 + "억";
+        price = Math.round((price / 100000000) * 10) / 10 + "억";
       } else {
-        price = price / 10000 + "만";
+        price = Math.round(price / 10000) + "만";
       }
       return price;
     },
