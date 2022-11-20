@@ -2,6 +2,9 @@ package com.ssafy.vue.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+
 
 @ApiModel(value = "HouseInfoDto : 아파트정보", description = "아파트의 상세 정보를 나타낸다.")
 public class HouseInfoDto {
@@ -17,6 +20,13 @@ public class HouseInfoDto {
 	private String dongName;
 	@ApiModelProperty(value = "도로명주소")
 	private String roadName;
+	
+	@ApiModelProperty(value = "도로명본번")
+	private String roadNameBonbun;
+	
+	@ApiModelProperty(value = "도로명부번")
+	private String roadNameBubun;
+	
 	@ApiModelProperty(value = "지번")
 	private String jibun;
 	@ApiModelProperty(value = "위도")
@@ -41,6 +51,7 @@ public class HouseInfoDto {
 	private String dealDate;
 	@ApiModelProperty(value = "층수")
 	private int floor;
+	
 	public long getAptCode() {
 		return aptCode;
 	}
@@ -70,6 +81,18 @@ public class HouseInfoDto {
 	}
 	public void setRoadName(String roadName) {
 		this.roadName = roadName;
+	}
+	public String getRoadNameBonbun() {
+		return roadNameBonbun;
+	}
+	public void setRoadNameBonbun(String roadNameBonbun) {
+		this.roadNameBonbun = roadNameBonbun;
+	}
+	public String getRoadNameBubun() {
+		return roadNameBubun;
+	}
+	public void setRoadNameBubun(String roadNameBubun) {
+		this.roadNameBubun = roadNameBubun;
 	}
 	public String getJibun() {
 		return jibun;
@@ -137,6 +160,7 @@ public class HouseInfoDto {
 	public void setFloor(int floor) {
 		this.floor = floor;
 	}
+	
 	
 //	@ApiModelProperty(value = "시도이름")
 //	private String sidoName;

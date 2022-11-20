@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ssafy.vue.model.StarDto;
 
 @Mapper
-public interface ApartmentMapper {
+public interface StarMapper {
 
 	public void addStar(StarDto starDto) throws SQLException;
 

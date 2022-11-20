@@ -46,14 +46,18 @@ public class SwaggerConfiguration {
 	}
 
 	@Bean
-	public Docket searchApi() {
+	public Docket boardApi() {
 		return getDocket("게시판", Predicates.or(PathSelectors.regex("/board.*")));
 	}
 
 	@Bean
-	public Docket commonApi() {
+	public Docket aptApi() {
 		return getDocket("아파트", Predicates.or(PathSelectors.regex("/map.*")));
-
+	}
+	
+	@Bean
+	public Docket starApi() {
+		return getDocket("관심목록", Predicates.or(PathSelectors.regex("/star.*")));
 	}
 
 	@Bean

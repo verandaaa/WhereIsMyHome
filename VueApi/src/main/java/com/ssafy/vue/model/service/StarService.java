@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import com.ssafy.vue.model.StarDto;
 
-public interface ApartmentService {
+public interface StarService {
 
 	void addStar(StarDto starDto) throws Exception;
 

@@ -6,32 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.vue.model.StarDto;
-import com.ssafy.vue.model.mapper.ApartmentMapper;
+import com.ssafy.vue.model.mapper.StarMapper;
 
 @Service
-public class ApartmentServiceImpl implements ApartmentService {
+public class StarServiceImpl implements StarService {
 	
-	private ApartmentMapper apartmentMapper;
+	private StarMapper starMapper;
 	
 	@Autowired
-	public ApartmentServiceImpl(ApartmentMapper apartmentMapper) {
-		this.apartmentMapper = apartmentMapper;
+	public StarServiceImpl(StarMapper starMapper) {
+		this.starMapper = starMapper;
 	}
 
 	@Override
 	public void addStar(StarDto starDto) throws Exception {
-		apartmentMapper.addStar(starDto);
-		
+		starMapper.addStar(starDto);
 	}
 
 	@Override
 	public List<StarDto> listStar(String userid) throws Exception {
-		return apartmentMapper.listStar(userid);
+		return starMapper.listStar(userid);
 	}
 
 	@Override
 	public void deleteStar(int starNo) throws Exception {
-		apartmentMapper.deleteStar(starNo);
+		starMapper.deleteStar(starNo);
 		
 	}
 

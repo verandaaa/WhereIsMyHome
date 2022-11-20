@@ -1,71 +1,68 @@
 package com.ssafy.vue.model;
 
-public class StarDto {
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-	private int starNo;
-	private String dongCode;
-	private String year;
-	private String month;
-	private String sidoName;
-	private String gugunName;
-	private String dongName;
-	private String userId;
+@ApiModel(value = "StarDto : 아파트정보", description = "관심목록에 저장한 거래 정보를 나타낸다.")
+public class StarDto extends HouseInfoDto {
 	
-	public int getStarNo() {
-		return starNo;
+	@ApiModelProperty(value = "관심목록번호")
+	private int starNo;
+	
+	@ApiModelProperty(value = "시도이름")
+	private String sidoName;
+	
+	@ApiModelProperty(value = "구군이름")
+	private String gugunName;
+	
+	
+	@ApiModelProperty(value = "소재지")
+	private String lawArea;
+	
+	@ApiModelProperty(value = "상세주소")
+	private String address;
+	
+
+	public String getLawArea() {
+		return lawArea;
 	}
-	public void setStarNo(int starNo) {
-		this.starNo = starNo;
+
+	public void setLawArea(String lawArea) {
+		this.lawArea = lawArea;
 	}
-	public String getDongCode() {
-		return dongCode;
+
+	public String getAddress() {
+		return address;
 	}
-	public void setDongCode(String dongCode) {
-		this.dongCode = dongCode;
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public String getYear() {
-		return year;
-	}
-	public void setYear(String year) {
-		this.year = year;
-	}
-	public String getMonth() {
-		return month;
-	}
-	public void setMonth(String month) {
-		this.month = month;
-	}
+
 	public String getSidoName() {
 		return sidoName;
 	}
+
 	public void setSidoName(String sidoName) {
 		this.sidoName = sidoName;
 	}
+
 	public String getGugunName() {
 		return gugunName;
 	}
+
 	public void setGugunName(String gugunName) {
 		this.gugunName = gugunName;
 	}
-	public String getDongName() {
-		return dongName;
-	}
-	public void setDongName(String dongName) {
-		this.dongName = dongName;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	@Override
-	public String toString() {
-		return "StarDto [starNo=" + starNo + ", dongCode=" + dongCode + ", year=" + year + ", month=" + month
-				+ ", sidoName=" + sidoName + ", gugunName=" + gugunName + ", dongName=" + dongName + ", userId="
-				+ userId + "]";
-	}
-	
-	
 
+	public int getStarNo() {
+		return starNo;
+	}
+
+	public void setStarNo(int starNo) {
+		this.starNo = starNo;
+	}
+	
+	
+	
 }

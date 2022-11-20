@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.vue.model.mapper.StarMapper">
+
+	<select id="listStar" parameterType="string" resultType="StarDto">
+		select s.starno, s.aptCode, hi.aptName, concat(d.sidoName, " ", d.gugunName, " ", hi.dongName) lawArea, 
+        concat(hi.roadName, " ", trim('0' from hi.roadNameBonbun), " ", trim('0' from hi.roadNameBubun) ) address, hi.buildYear
+        from star s, houseinfo hi, dongCode d
+        where s.userid = #{userid}
+        and s.aptCode = hi.aptCode
+        and hi.dongCode = d.dongCode
+	</select>
+	
+	
+</mapper>
