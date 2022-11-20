@@ -100,7 +100,9 @@ export default {
             // console.log("!!!!!!!!!!!!!!!!!!!!!" + result[i].b_code);
 
             // this.getRegion1depth(region1depthName);
-            this.getRegion2depth(result[i].code.substring(0, 5));
+            //alert(result[i].code);
+            // this.getRegion2depth(result[i].code.substring(0, 5)); //구군까지
+            this.getRegion2depth(result[i].code); //동까지
             break;
           }
         }

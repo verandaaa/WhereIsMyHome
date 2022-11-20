@@ -18,12 +18,16 @@
         ></b-form-select>
       </div>
       <div class="item">
-        <b-form-select v-model="dongCode" :options="dongs"></b-form-select>
+        <b-form-select
+          v-model="dongCode"
+          :options="dongs"
+          style="width: 100px; font-size: 13px; font-weight: 700"
+        ></b-form-select>
       </div>
     </b-modal>
-    <div class="test">
-      {{ find1(sidoCode) }} {{ find2(gugunCode) }}
-      <b-button v-b-modal.modal-1>검색</b-button>
+    <div class="test" v-b-modal.modal-1>
+      {{ find1(sidoCode) }} {{ find2(gugunCode) }} {{ find3(dongCode) }}
+      <button class="modal-btn">검색</button>
     </div>
   </div>
 </template>
@@ -56,19 +60,20 @@ export default {
       console.log("new : " + newValue + " / old : " + oldValue);
       const nvsd = newValue.substring(0, 2);
       const nvgg = newValue.substring(0, 5);
-      if (!oldValue) oldValue = "00000";
+      const nvd = newValue;
+      if (!oldValue) oldValue = "0000000000";
       const ovsd = oldValue.substring(0, 2);
+      const ovgg = oldValue.substring(0, 5);
 
       if (nvsd !== ovsd) {
-        //도가 달려졌다 -> 시도 달라졌다.
-        console.log("1 : " + this.guguns);
         this.sidoCode = nvsd;
         this.gugunList();
-        console.log("6 : " + this.guguns);
       }
-      //도는 그대로이다 -> 시만 달라졌다.
-      console.log("7 : ");
-      this.gugunCode = nvgg;
+      if (nvgg !== ovgg) {
+        this.gugunCode = nvgg;
+        this.dongList();
+      }
+      this.dongCode = nvd;
       this.searchApt();
     },
   },
@@ -119,6 +124,11 @@ export default {
         if (this.guguns[i].value === gugunCode) return this.guguns[i].text;
       }
     },
+    find3(dongCode) {
+      for (let i = 0; i < this.dongs.length; i++) {
+        if (this.dongs[i].value === dongCode) return this.dongs[i].text;
+      }
+    },
   },
 };
 </script>
@@ -146,9 +156,17 @@ export default {
 }
 
 .test {
-  padding: 5px 20px;
+  padding: 5px 10px;
+  font-size: 14px;
   border-radius: 50px;
   background-color: white;
   border: 1.5px solid gray;
+  font-weight: bold;
+}
+.modal-btn {
+  border: 1px solid #d3d3d3;
+  background-color: white;
+  border-radius: 15px;
+  font-size: 12px;
 }
 </style>
