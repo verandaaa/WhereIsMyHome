@@ -1,83 +1,32 @@
 <template>
   <div>
-    <b-navbar>
-      <b-navbar-brand href="#">
-        <router-link :to="{ name: 'main' }">
-          <b-img
-            :src="require('@/assets/ssafy_logo.png')"
-            id="logo"
-            class="d-inline-block align-top"
-            alt="logo"
-          ></b-img>
-        </router-link>
-      </b-navbar-brand>
-
-      <b-navbar target="nav-collapse"></b-navbar>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="#">
-            <router-link :to="{ name: 'main' }" class="link">
-              <b-icon icon="house-door" font-scale="2"></b-icon>
-              메인
-            </router-link>
-            <router-link :to="{ name: 'insta' }" class="m-2 link">
-              <b-icon icon="instagram" font-scale="2"></b-icon>
-              인스타그램
-            </router-link>
-            <router-link :to="{ name: 'board' }" class="m-2 link">
-              <b-icon icon="journal" font-scale="2"></b-icon>
-              게시판
-            </router-link>
-            <router-link :to="{ name: 'house' }" class="m-2 link">
-              <b-icon icon="house-fill" font-scale="2"></b-icon>
-              아파트정보
-            </router-link>
-            <router-link :to="{ name: 'todo' }" class="link">
-              <b-icon icon="calendar-check" font-scale="2"></b-icon>
-              TodoList
-            </router-link>
-          </b-nav-item>
-        </b-navbar-nav>
-
-        <!-- after login -->
-        <b-navbar-nav class="ml-auto" v-if="userInfo">
-          <b-nav-item class="align-self-center">
-            <b-avatar
-              variant="primary"
-              v-text="userInfo.userid.charAt(0).toUpperCase()"
-            ></b-avatar>
-            {{ userInfo.username }}({{ userInfo.userid }})님 환영합니다.
-          </b-nav-item>
-          <b-nav-item class="align-self-center">
-            <router-link :to="{ name: 'mypage' }" class="link align-self-center"
-              >내정보보기</router-link
-            >
-          </b-nav-item>
-          <b-nav-item
-            class="align-self-center link"
-            @click.prevent="onClickLogout"
-            >로그아웃</b-nav-item
-          >
-        </b-navbar-nav>
-        <!-- before login -->
-        <b-navbar-nav class="ml-auto" v-else>
-          <template #button-content>
-            <b-icon icon="people" font-scale="2"></b-icon>
-          </template>
-          <b-nav-item href="#">
-            <router-link :to="{ name: 'join' }" class="link">
-              <b-icon icon="person-circle"></b-icon> 회원가입
-            </router-link>
-          </b-nav-item>
-          <b-nav-item href="#">
-            <router-link :to="{ name: 'login' }" class="link">
-              <b-icon icon="key"></b-icon> 로그인
-            </router-link>
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+    <div id="div">
+      <b-row class="text-center">
+        <b-col id="col-logo"
+          ><router-link :to="{ name: 'main' }"
+            ><b-img
+              :src="require('@/assets/house_logo.png')"
+              style="width: 100px"
+            ></b-img
+          ></router-link>
+        </b-col>
+        <b-col cols="8" id="col-nav"
+          ><router-link :to="{ name: 'board' }"> 게시판 </router-link>
+          <router-link :to="{ name: 'house' }"> 아파트정보 </router-link>
+          <router-link :to="{ name: 'insta' }"> 임시메뉴 </router-link>
+          <router-link :to="{ name: 'insta' }"> 임시메뉴 </router-link>
+          <router-link :to="{ name: 'star' }"> 관심목록 </router-link>
+        </b-col>
+        <b-col id="col-user" v-if="userInfo">
+          <b-link @click.prevent="onClickLogout">로그아웃</b-link> |
+          <router-link :to="{ name: 'mypage' }">내정보</router-link>
+        </b-col>
+        <b-col id="col-user" v-else>
+          <router-link :to="{ name: 'login' }"> 로그인</router-link> |
+          <router-link :to="{ name: 'join' }"> 회원가입 </router-link>
+        </b-col>
+      </b-row>
+    </div>
   </div>
 </template>
 
@@ -116,17 +65,69 @@ export default {
 };
 </script>
 
-<style>
-#logo {
-  width: 120px;
+<style scoped>
+#div {
+  background-color: white;
+  height: 60px;
+  overflow: hidden;
+  border-bottom: 1.5px solid #d3d3d3;
 }
-
-.link {
+#col-logo {
+  line-height: 60px;
+  text-align: left;
+  padding-left: 40px;
+}
+#col-nav {
+  line-height: 62px;
+}
+#col-user {
+  line-height: 63px;
+  text-align: right;
+  padding-right: 40px;
+}
+#col-nav > a {
+  font-size: 15px;
+  color: black;
+  text-decoration: none;
+  position: relative;
+  padding: 0 15px;
+  font-weight: bold;
+}
+#col-nav > a:hover {
+  color: black;
   text-decoration: none;
 }
 
-.navbar {
-  height: 65px !important;
-  border-bottom: 1px solid #d3d3d3;
+#col-nav > a:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background: #474747;
+  transition: all 0.2s ease-out;
+}
+#col-nav > a:hover::after {
+  width: 70%;
+}
+#col-user > a {
+  font-size: 14px;
+  color: black;
+  text-decoration: none;
+  position: relative;
+  padding: 0 15px;
+}
+#col-nav .router-link-active:after {
+  /* border-bottom: 4px solid #474747; */
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 4px;
+  background: #474747;
 }
 </style>

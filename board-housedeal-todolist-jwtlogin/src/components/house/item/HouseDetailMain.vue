@@ -47,6 +47,11 @@
         </b-alert>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <b-alert show variant="warning">면적 : {{ house.area }}</b-alert>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

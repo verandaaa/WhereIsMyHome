@@ -46,11 +46,6 @@ const routes = [
     component: AppHouse,
   },
   {
-    path: "/todo",
-    name: "todo",
-    component: () => import("@/views/AppTodo"),
-  },
-  {
     path: "/user",
     name: "user",
     component: () => import("@/views/AppUser"),
@@ -107,6 +102,32 @@ const routes = [
         name: "boarddelete",
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/board/BoardDelete"),
+      },
+    ],
+  },
+  {
+    path: "/star",
+    name: "star",
+    component: () => import("@/views/AppStar"),
+    redirect: "/star/list",
+    children: [
+      {
+        path: "list",
+        name: "starlist",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/star/StarList"),
+      },
+      {
+        path: "view/:houseno",
+        name: "starview",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/star/StarView"),
+      },
+      {
+        path: "delete/:houseno",
+        name: "stardelete",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/star/StarDelete"),
       },
     ],
   },

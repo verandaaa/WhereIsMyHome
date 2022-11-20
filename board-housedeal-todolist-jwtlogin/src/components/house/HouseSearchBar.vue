@@ -1,51 +1,36 @@
 <template>
-  <div>
-    <b-row
-      class="mt-4 mb-4 text-center"
-      style="
-        border: 2px solid white;
-        background-color: white;
-        border-radius: 5px;
-        padding: 15px 0;
-      "
-    >
-      <b-col>
+  <div class="box-wrap">
+    <b-modal id="modal-1" title="BootstrapVue" @ok="searchApt">
+      <div class="item">
         <b-form-select
           v-model="sidoCode"
           :options="sidos"
           @change="gugunList"
+          style="width: 100px; font-size: 13px; font-weight: 700"
         ></b-form-select>
-      </b-col>
-      <b-col>
+      </div>
+      <div class="item">
         <b-form-select
           v-model="gugunCode"
           :options="guguns"
           @change="dongList"
+          style="width: 100px; font-size: 13px; font-weight: 700"
         ></b-form-select>
-      </b-col>
-      <b-col>
+      </div>
+      <div class="item">
         <b-form-select v-model="dongCode" :options="dongs"></b-form-select>
-      </b-col>
-      <b-col>
-        <b-button @click="searchApt" variant="primary">검색</b-button>
-      </b-col>
-    </b-row>
+      </div>
+    </b-modal>
+    <div class="test">
+      {{ find1(sidoCode) }} {{ find2(gugunCode) }}
+      <b-button v-b-modal.modal-1>검색</b-button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 
-/*
-  namespaced: true를 사용했기 때문에 선언해줍니다.
-  index.js 에서 modules 객체의 '키' 이름입니다.
-
-  modules: {
-    키: 값
-    memberStore: memberStore,
-    houseStore: houseStore
-  }
-*/
 const houseStore = "houseStore";
 
 export default {
@@ -67,10 +52,6 @@ export default {
     ]),
   },
   watch: {
-    sidoCode() {
-      console.log("시도코드 바뀜");
-      this.getGugun(this.sidoCode);
-    },
     region2depthName(newValue, oldValue) {
       console.log("new : " + newValue + " / old : " + oldValue);
       const nvsd = newValue.substring(0, 2);
@@ -96,6 +77,8 @@ export default {
     this.getSido();
     this.CLEAR_REGION_1DEPTH();
     this.CLEAR_REGION_2DEPTH();
+    // console.log("-----------------");
+    // console.log(this.sidos);
   },
   methods: {
     ...mapActions(houseStore, [
@@ -126,8 +109,46 @@ export default {
     searchApt() {
       if (this.dongCode) this.getHouseList(this.dongCode);
     },
+    find1(sidoCode) {
+      for (let i = 0; i < this.sidos.length; i++) {
+        if (this.sidos[i].value === sidoCode) return this.sidos[i].text;
+      }
+    },
+    find2(gugunCode) {
+      for (let i = 0; i < this.guguns.length; i++) {
+        if (this.guguns[i].value === gugunCode) return this.guguns[i].text;
+      }
+    },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.h-container {
+  padding: 5px 20px;
+  border-radius: 50px;
+  background-color: white;
+  border: 1.5px solid gray;
+}
+.h-container:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+.h-container .item {
+  float: left;
+  text-align: left;
+  margin: 5px;
+}
+.h-container .item.last {
+  float: right;
+  border-right: none;
+}
+
+.test {
+  padding: 5px 20px;
+  border-radius: 50px;
+  background-color: white;
+  border: 1.5px solid gray;
+}
+</style>

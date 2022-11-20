@@ -1,5 +1,5 @@
 <template>
-  <div style="height: calc(100vh - 65px)">
+  <div style="height: calc(100vh - 60px)">
     <div id="map"></div>
     <div class="button-group"></div>
   </div>
@@ -58,6 +58,17 @@ export default {
       this.map = new kakao.maps.Map(container, options);
 
       kakao.maps.event.addListener(this.map, "tilesloaded", this.test);
+
+      // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+      var mapTypeControl = new kakao.maps.MapTypeControl();
+
+      // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+      // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+      this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+      // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+      var zoomControl = new kakao.maps.ZoomControl();
+      this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     },
     selectHouse(item) {
       this.detailHouse(item);
@@ -104,7 +115,6 @@ export default {
       }
       return price;
     },
-
     findHouse() {
       let i = 0;
       for (let k = 0; k < this.overlays.length; k++) {
@@ -147,60 +157,6 @@ export default {
         }
       }); // foreach
     }, // findhouse
-
-    // # 기존 버전(도로명 주소로 위도경도 얻어서 오버레이 생성)
-    // findHouse() {
-    //   let i = 0;
-    //   for (let k = 0; k < this.overlays.length; k++) {
-    //     this.overlays[k].setMap(null);
-    //   }
-
-    //   this.overlays = [];
-    //   this.geocoder = new kakao.maps.services.Geocoder();
-
-    //   this.houses.forEach((item) => {
-    //     let adress =
-    //       item.도로명 +
-    //       " " +
-    //       item.도로명건물본번호코드 +
-    //       " " +
-    //       item.도로명건물부번호코드;
-    //     this.geocoder.addressSearch(adress, (result, status) => {
-    //       if (status === kakao.maps.services.Status.OK) {
-    //         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-    //         const content = document.createElement("div");
-    //         content.className = "overlay";
-    //         const a = document.createElement("a");
-    //         const span = document.createElement("span");
-    //         span.className = "title";
-    //         span.appendChild(
-    //           document.createTextNode(this.priceFilter(item.거래금액))
-    //         );
-    //         a.appendChild(span);
-    //         content.appendChild(a);
-
-    //         content.onclick = () => {
-    //           this.selectHouse(item);
-    //           this.detailOpen();
-    //         };
-
-    //         var overlay = new kakao.maps.CustomOverlay({
-    //           map: this.map,
-    //           position: coords,
-    //           content: content,
-    //           yAnchor: 1,
-    //         });
-
-    //         i++;
-    //         this.overlays.push(overlay);
-    //         if (i == 1) {
-    //           this.map.panTo(coords);
-    //         }
-    //       } // if
-    //     }); //addressSearch
-    //   }); //foreach
-    // }, // findhouse
   },
 };
 </script>

@@ -1,13 +1,29 @@
 <template>
   <div>
-    <b-container class="bv-example-row">
-      <b-row>
-        <b-col cols="8"
-          ><h4>{{ house.아파트 }}</h4></b-col
-        >
-        <b-col cols="4"><button @click="detail">X</button></b-col>
-      </b-row>
-    </b-container>
+    <div class="h-container">
+      <div class="item">
+        <div style="margin: 10px 0 0 20px; font-weight: 900; font-size: 20px">
+          {{ house.aptName }}
+        </div>
+        <div style="margin: 0 0 0 20px; font-size: 13px">
+          {{ house.roadName }} {{ house.도로명건물본번호코드 }}-{{
+            house.도로명건물부번호코드
+          }}
+        </div>
+      </div>
+      <div class="item last">
+        <b-img
+          :src="require('@/assets/star_false.png')"
+          style="width: 20px"
+        ></b-img
+        ><b-img
+          class="x"
+          :src="require('@/assets/close.png')"
+          style="width: 16px; margin: 25px"
+          @click="detail"
+        ></b-img>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -31,4 +47,21 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.x:hover {
+  cursor: pointer;
+}
+.h-container:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+.h-container .item {
+  float: left;
+  text-align: left;
+}
+.h-container .item.last {
+  float: right;
+  border-right: none;
+}
+</style>
