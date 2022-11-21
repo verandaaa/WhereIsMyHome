@@ -13,10 +13,23 @@
       </div>
       <div class="item last">
         <b-img
+          v-if="hasStar"
+          class="star"
+          :src="require('@/assets/star_true.png')"
+          style="width: 20px"
+          @click="mvDeleteStar"
+        >
+        </b-img>
+        <b-img
+          v-else
+          class="star"
           :src="require('@/assets/star_false.png')"
           style="width: 20px"
-        ></b-img
-        ><b-img
+          @click="mvAddStar"
+        >
+        </b-img>
+
+        <b-img
           class="x"
           :src="require('@/assets/close.png')"
           style="width: 16px; margin: 25px"
@@ -30,25 +43,93 @@
 <script>
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
+import { addStar, getStar, deleteStar } from "@/api/star";
 
 const houseStore = "houseStore";
+const memberStore = "memberStore";
 
 export default {
   name: "HouseDetailTitle",
+
+  data() {
+    return {
+      hasStar: false,
+      param: {
+        aptCode: "",
+        userid: "",
+      },
+    };
+  },
+
+  created() {
+    getStar(
+      this.param,
+      ({ data }) => {
+        if (data === "success") {
+          console.log("getStar 도착", data);
+          this.hasStar = true;
+        } else {
+          console.log("getStar 도착", data);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  },
+
+  mounted() {
+    this.param.aptCode = this.house.aptCode;
+    this.param.userid = this.userInfo.userid;
+  },
   computed: {
     ...mapState(houseStore, ["house", "open"]),
+    ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
     ...mapActions(houseStore, ["detailClose"]),
     detail() {
       this.detailClose();
     },
+    changeImg() {
+      this.imageIndex = (this.imageIndex + 1) % 2;
+    },
+    mvAddStar() {
+      console.log("addStar 도착");
+      addStar(
+        this.param,
+        ({ data }) => {
+          if (data === "success") {
+            this.hasStar = true;
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
+    mvDeleteStar() {
+      console.log("delStar 도착");
+      deleteStar(
+        this.param,
+        ({ data }) => {
+          if (data === "success") {
+            this.hasStar = false;
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>
 
 <style scoped>
-.x:hover {
+.x,
+.star:hover {
   cursor: pointer;
 }
 .h-container:after {

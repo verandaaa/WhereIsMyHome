@@ -20,6 +20,13 @@
             <b-form-checkbox> </b-form-checkbox>
           </template>
 
+          <template #cell(photo)>
+            <b-img
+              :src="require('@/assets/ghm.jpg')"
+              style="width: 150px"
+            ></b-img>
+          </template>
+
           <template #cell(aptName)="data">
             <router-link
               :to="{
@@ -34,7 +41,7 @@
           <template #cell(deletebtn)="data">
             <b-button
               size="sm"
-              @click="delConfirm(data.item.starNo)"
+              @click="delConfirm(data.item.aptCode)"
               class="mr-2"
             >
               삭제
@@ -90,16 +97,7 @@ export default {
   },
 
   created() {
-    listStars(
-      this.userInfo.userid,
-      ({ data }) => {
-        console.log("관심목록 도착", data);
-        this.stars = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.showlist();
   },
   methods: {
     viewStar(star) {
@@ -108,17 +106,31 @@ export default {
         params: { starno: star.starNo },
       });
     },
+    showlist() {
+      listStars(
+        this.userInfo.userid,
+        ({ data }) => {
+          console.log("관심목록 도착", data);
+          this.stars = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
 
-    delConfirm(starNo) {
+    delConfirm(aptCode) {
       if (confirm("정말로 삭제하시겠습니까?")) {
         deleteStar(
-          starNo,
+          aptCode,
+          this.userInfo.userid,
           ({ data }) => {
             let msg = "삭제 처리시 문제가 발생했습니다.";
             if (data === "success") {
               msg = "삭제가 완료됐습니다.";
             }
             alert(msg);
+            this.showlist();
           },
           (error) => {
             console.log(error);
