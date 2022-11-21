@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.vue.model.StarDto;
 import com.ssafy.vue.model.mapper.StarMapper;
@@ -29,9 +30,11 @@ public class StarServiceImpl implements StarService {
 	}
 
 	@Override
-	public void deleteStar(int starNo) throws Exception {
-		starMapper.deleteStar(starNo);
-		
+	@Transactional
+	public boolean deleteStar(int starNo) throws Exception {
+		return starMapper.deleteStar(starNo) == 1;
 	}
+	
+	
 
 }

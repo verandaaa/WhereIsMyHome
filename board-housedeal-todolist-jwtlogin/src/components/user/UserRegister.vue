@@ -97,6 +97,7 @@ export default {
         emailDomain: "",
       },
       domains: ["ssafy.com", "google.com", "naver.com", "kakao.com"],
+      list: [],
       msg: "",
       isSuccess: false,
       isFail: false,

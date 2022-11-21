@@ -24,15 +24,19 @@
             <router-link
               :to="{
                 name: 'StarView',
-                params: { starno: data.item.starno },
+                params: { starno: data.item.starNo },
               }"
             >
               {{ data.item.aptName }}
             </router-link>
           </template>
 
-          <template #cell(deletebtn)="row">
-            <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          <template #cell(deletebtn)="data">
+            <b-button
+              size="sm"
+              @click="delConfirm(data.item.starNo)"
+              class="mr-2"
+            >
               삭제
             </b-button>
           </template>
@@ -53,7 +57,7 @@
 </template>
 
 <script>
-import { listStars } from "@/api/star";
+import { listStars, deleteStar } from "@/api/star";
 import { mapState } from "vuex";
 const memberStore = "memberStore";
 
@@ -66,7 +70,7 @@ export default {
       perPage: 10,
       stars: [],
       fields: [
-        { key: "deletechk", label: "삭제 선택", tdClass: "tdDeleteChk" },
+        { key: "deletechk", label: "선택", tdClass: "tdDeleteChk" },
         { key: "photo", label: "사진", tdClass: "tdPhoto" },
         { key: "lawArea", label: "소재지", tdClass: "tdlawArea" },
         { key: "address", label: "상세주소", tdClass: "tdAddress" },
@@ -101,9 +105,28 @@ export default {
     viewStar(star) {
       this.$router.push({
         name: "StarView",
-        params: { starno: star.starno },
+        params: { starno: star.starNo },
       });
     },
+
+    delConfirm(starNo) {
+      if (confirm("정말로 삭제하시겠습니까?")) {
+        deleteStar(
+          starNo,
+          ({ data }) => {
+            let msg = "삭제 처리시 문제가 발생했습니다.";
+            if (data === "success") {
+              msg = "삭제가 완료됐습니다.";
+            }
+            alert(msg);
+          },
+          (error) => {
+            console.log(error);
+          }
+        ); //deleteStar
+      } //if
+    }, //deleteConfirm
+
     totalPage() {
       return Math.ceil(this.rows / this.perPage);
     },

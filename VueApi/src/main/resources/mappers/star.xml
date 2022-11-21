@@ -13,5 +13,10 @@
         and hi.dongCode = d.dongCode
 	</select>
 	
+	<delete id="deleteStar" parameterType="int">
+		delete from star
+		where starno = #{starNo}
+	</delete>
+	
 	
 </mapper>

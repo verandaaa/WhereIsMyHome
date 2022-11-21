@@ -14,6 +14,6 @@ public interface StarMapper {
 
 	public List<StarDto> listStar(String userid) throws SQLException;
 
-	public void deleteStar(int starNo) throws SQLException;
+	public int deleteStar(int starNo) throws SQLException;
 	
 }

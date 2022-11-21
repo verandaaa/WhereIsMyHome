@@ -10,6 +10,6 @@ public interface StarService {
 
 	List<StarDto> listStar(String userid) throws Exception;
 
-	void deleteStar(int starNo) throws Exception;
+	boolean deleteStar(int starNo) throws Exception;
 	
 }
