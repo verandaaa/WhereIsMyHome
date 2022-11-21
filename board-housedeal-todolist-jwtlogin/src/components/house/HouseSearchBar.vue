@@ -1,72 +1,53 @@
 <template>
   <div class="box-wrap">
-    <b-form-group label="검색 방법을 선택하세요" v-slot="{ ariaDescribedby }">
-      <b-form-radio-group
-        id="btn-radios-2"
-        v-model="selected"
-        :options="options"
-        :aria-describedby="ariaDescribedby"
-        button-variant="outline-primary"
-        name="radio-btn-outline"
-        buttons
-      ></b-form-radio-group>
-    </b-form-group>
-
-    <!-- <b-form-group label="검색 방법을 선택하세요" v-slot="{ ariaDescribedby }">
-      <b-form-radio
-        v-model="selected"
-        :aria-describedby="ariaDescribedby"
-        name="some-radios"
-        value="A"
-        >동 검색</b-form-radio
-      >
-      <b-form-radio
-        v-model="selected"
-        :aria-describedby="ariaDescribedby"
-        name="some-radios"
-        value="B"
-        >이름 검색</b-form-radio
-      >
-    </b-form-group> -->
-
-    <div v-if="selected === 'A'">
-      <div class="h-container">
-        <div class="item">
-          <b-form-select
-            v-model="sidoCode"
-            :options="sidos"
-            @change="gugunList"
-            style="width: 120px; font-size: 16px; font-weight: 700"
-          ></b-form-select>
-        </div>
-        <div class="item">
-          <b-form-select
-            v-model="gugunCode"
-            :options="guguns"
-            @change="dongList"
-            style="width: 120px; font-size: 16px; font-weight: 700"
-          ></b-form-select>
-        </div>
-        <div class="item">
-          <b-form-select
-            v-model="dongCode"
-            :options="dongs"
-            style="width: 120px; font-size: 16px; font-weight: 700"
-          ></b-form-select>
-        </div>
-      </div>
-      <div><button @click="searchApt">검색</button></div>
+    <div style="font-size: 20px; font-weight: 900; margin: 10px 0">
+      검색 방법을 선택하세요
     </div>
-    <div v-else>
-      <div>
-        <b-form-input
-          v-model="aptName"
-          @keyup="gal"
-          placeholder="아파트 이름"
-        ></b-form-input>
-        <button @click="searchApt2">검색</button>
-      </div>
-    </div>
+
+    <b-tabs v-model="tabIndex" align="center">
+      <b-tab title="주소로 검색" :title-link-class="linkClass(0)"
+        ><div class="h-container">
+          <div class="item">
+            <b-form-select
+              v-model="sidoCode"
+              :options="sidos"
+              @change="gugunList"
+              style="width: 110px; font-size: 14px; font-weight: 700"
+            ></b-form-select>
+          </div>
+          <div class="item">
+            <b-form-select
+              v-model="gugunCode"
+              :options="guguns"
+              @change="dongList"
+              style="width: 110px; font-size: 14px; font-weight: 700"
+            ></b-form-select>
+          </div>
+          <div class="item">
+            <b-form-select
+              v-model="dongCode"
+              :options="dongs"
+              style="width: 110px; font-size: 14px; font-weight: 700"
+            ></b-form-select>
+          </div>
+        </div>
+        <div>
+          <b-button block variant="primary" @click="searchApt">검색</b-button>
+        </div></b-tab
+      >
+      <b-tab title="아파트명으로 검색" :title-link-class="linkClass(1)"
+        ><div class="s-container">
+          <b-form-input
+            v-model="aptName"
+            @keyup="gal"
+            placeholder="아파트 이름"
+          ></b-form-input>
+        </div>
+        <div>
+          <b-button block variant="primary" @click="searchApt2">검색</b-button>
+        </div></b-tab
+      >
+    </b-tabs>
   </div>
 </template>
 
@@ -88,6 +69,7 @@ export default {
         { text: "주소 검색", value: "A" },
         { text: "아파트 검색", value: "B" },
       ],
+      tabIndex: 0,
     };
   },
   computed: {
@@ -132,6 +114,13 @@ export default {
     gal() {
       console.log(this.aptName);
     },
+    linkClass(idx) {
+      if (this.tabIndex === idx) {
+        return ["text-primary"];
+      } else {
+        return ["text-dark"];
+      }
+    },
   },
 };
 </script>
@@ -141,6 +130,7 @@ export default {
   /* border: 1px solid red; */
   display: flex;
   justify-content: center;
+  margin: 10px 0;
 }
 .h-container:after {
   clear: both;
@@ -160,5 +150,9 @@ export default {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.24);
   padding: 10px;
+}
+
+.s-container {
+  margin: 13.5px 0;
 }
 </style>

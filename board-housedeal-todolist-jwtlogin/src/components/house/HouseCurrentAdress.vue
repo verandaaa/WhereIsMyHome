@@ -19,17 +19,17 @@ export default {
   computed: {
     ...mapState(houseStore, ["region2depthName", "addressName"]),
   },
-  //   watch: {
-  //     region2depthName(newValue, oldValue) {
-  //       console.log("new : " + newValue + " / old : " + oldValue);
+  watch: {
+    region2depthName(newValue, oldValue) {
+      console.log("new : " + newValue + " / old : " + oldValue);
 
-  //       const nvd = newValue;
-  //       if (!oldValue) oldValue = "0000000000";
+      const nvd = newValue;
+      if (!oldValue) oldValue = "0000000000";
 
-  //       this.dongCode = nvd;
-  //       this.searchApt();
-  //     },
-  //   },
+      this.dongCode = nvd;
+      this.searchApt();
+    },
+  },
   methods: {
     ...mapActions(houseStore, ["getHouseList"]),
     searchApt() {
