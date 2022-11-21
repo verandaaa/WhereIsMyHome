@@ -270,14 +270,9 @@ export default {
         // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
         var self = this;
         (function (marker, place) {
-          kakao.maps.event.addListener(
-            marker,
-            "click",
-            function () {
-              self.displayplaceinfo(place);
-            },
-            false
-          );
+          kakao.maps.event.addListener(marker, "click", function () {
+            self.displayplaceinfo(place);
+          });
         })(marker, places[i]);
       }
     },
@@ -361,25 +356,51 @@ export default {
     addCategoryClickEvent() {
       var category = document.getElementById("category"),
         children = category.children;
-
-      for (var i = 0; i < children.length; i++) {
-        children[i].onclick = this.onClickCategory;
+      for (let i = 0; i < children.length; i++) {
+        // console.log(children[i]);
+        children[i].onclick = () => {
+          console.log(children.className);
+          this.onClickCategory(children[i].id, children[i].className);
+        };
       }
     },
     // 카테고리를 클릭했을 때 호출되는 함수입니다
-    onClickCategory(event) {
-      var id = event.currentTarget.id,
-        className = event.currentTarget.className;
-
+    onClickCategory(id, className) {
+      // var id = this.id,
+      //   className = this.className;
       this.placeOverlay.setMap(null);
-
+      console.log(className);
       if (className === "on") {
         this.currCategory = "";
         this.changeCategoryClass();
         this.removeMarker();
       } else {
         this.currCategory = id;
-        this.changeCategoryClass(this);
+        if (id == "BK9") {
+          this.changeCategoryClass(
+            document.getElementById("category").children.BK9
+          );
+        } else if (id == "CE7") {
+          this.changeCategoryClass(
+            document.getElementById("category").children.CE7
+          );
+        } else if (id == "CS2") {
+          this.changeCategoryClass(
+            document.getElementById("category").children.CS2
+          );
+        } else if (id == "MT1") {
+          this.changeCategoryClass(
+            document.getElementById("category").children.MT1
+          );
+        } else if (id == "OL7") {
+          this.changeCategoryClass(
+            document.getElementById("category").children.OL7
+          );
+        } else if (id == "PM9") {
+          this.changeCategoryClass(
+            document.getElementById("category").children.PM9
+          );
+        }
         this.searchPlaces();
       }
     },
