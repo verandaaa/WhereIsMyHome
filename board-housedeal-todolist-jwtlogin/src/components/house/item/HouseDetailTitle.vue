@@ -56,12 +56,16 @@ export default {
       hasStar: false,
       param: {
         aptCode: "",
-        userid: "",
+        userId: "",
       },
     };
   },
 
   created() {
+    this.param.aptCode = this.house.aptCode;
+    this.param.userId = this.userInfo.userid;
+
+    console.log(this.param);
     getStar(
       this.param,
       ({ data }) => {
@@ -78,10 +82,7 @@ export default {
     );
   },
 
-  mounted() {
-    this.param.aptCode = this.house.aptCode;
-    this.param.userid = this.userInfo.userid;
-  },
+  mounted() {},
   computed: {
     ...mapState(houseStore, ["house", "open"]),
     ...mapState(memberStore, ["userInfo"]),
@@ -95,7 +96,7 @@ export default {
       this.imageIndex = (this.imageIndex + 1) % 2;
     },
     mvAddStar() {
-      console.log("addStar 도착");
+      console.log("addStar 도착", this.param);
       addStar(
         this.param,
         ({ data }) => {

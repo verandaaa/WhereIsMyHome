@@ -13,7 +13,9 @@
       class="house-scroll"
     >
       <div><house-detail-main></house-detail-main></div>
-      <div><house-detail-graph></house-detail-graph></div>
+      <div>
+        <house-detail-graph></house-detail-graph>
+      </div>
       <div><house-detail-around></house-detail-around></div>
     </div>
   </div>

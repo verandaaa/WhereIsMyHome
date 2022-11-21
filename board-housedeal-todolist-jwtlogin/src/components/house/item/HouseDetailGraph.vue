@@ -1,21 +1,87 @@
 <template>
-  <div>
-    이 곳은 그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시
-    컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은
-    그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시
-    컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은
-    그래프가 나올 임시 컴포넌트입니다 !!! 이 곳은 그래프가 나올 임시
-    컴포넌트입니다 !!!
-  </div>
+  <Bar
+    :chart-options="chartOptions"
+    :chart-data="chartData"
+    :chart-id="chartId"
+    :dataset-id-key="datasetIdKey"
+    :plugins="plugins"
+    :css-classes="cssClasses"
+    :styles="styles"
+    :width="width"
+    :height="height"
+  />
 </template>
 
 <script>
+import { Bar } from "vue-chartjs";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from "chart.js";
+
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+);
+
 import { mapState } from "vuex";
 
 const houseStore = "houseStore";
 
 export default {
   name: "HouseDetailGraph",
+  components: { Bar },
+  props: {
+    chartId: {
+      type: String,
+      default: "bar-chart",
+    },
+    datasetIdKey: {
+      type: String,
+      default: "label",
+    },
+    width: {
+      type: Number,
+      default: 400,
+    },
+    height: {
+      type: Number,
+      default: 400,
+    },
+    cssClasses: {
+      default: "",
+      type: String,
+    },
+    styles: {
+      type: Object,
+      default: () => {},
+    },
+    plugins: {
+      type: Object,
+      default: () => {},
+    },
+    data() {
+      return {
+        chartData: {
+          labels: ["January", "February", "March"],
+          datasets: [{ data: [40, 20, 12] }],
+        },
+        chartOptions: {
+          responsive: true,
+        },
+      };
+    },
+  },
+
   computed: {
     ...mapState(houseStore, ["house"]),
     // house() {

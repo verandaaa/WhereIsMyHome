@@ -120,10 +120,11 @@ export default {
     },
 
     delConfirm(aptCode) {
+      console.log("delConfirm 도착");
+      console.log(aptCode);
       if (confirm("정말로 삭제하시겠습니까?")) {
         deleteStar(
-          aptCode,
-          this.userInfo.userid,
+          { aptCode, userId: this.userInfo.userid },
           ({ data }) => {
             let msg = "삭제 처리시 문제가 발생했습니다.";
             if (data === "success") {

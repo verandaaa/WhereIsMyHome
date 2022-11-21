@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.vue.model.StarDto;
@@ -60,8 +61,12 @@ public class StarController {
 	
 	@ApiOperation(value = "관심매물 삭제", notes = "번호에 해당하는 관심매물 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping
-	public ResponseEntity<String> deleteStar(@RequestBody @ApiParam(value ="관심목록 삭제할 회원 id, 아파트코드", required = true) StarParameterDto starParameterDto) throws Exception {
+	public ResponseEntity<String> deleteStar(@RequestParam @ApiParam(value ="관심목록 삭제할 회원 id, 아파트코드", required = true) long aptCode,
+			@RequestParam @ApiParam(value ="관심목록 삭제할 회원 id, 아파트코드", required = true)String userId) throws Exception {
 		logger.info("deleteStar - 호출");
+		StarParameterDto starParameterDto = new StarParameterDto();
+		starParameterDto.setUserId(userId);
+		starParameterDto.setAptCode(aptCode);
 		
 		if (starService.deleteStar(starParameterDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

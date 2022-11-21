@@ -19,7 +19,9 @@ const houseStore = {
     open: false,
     addressName: null,
   },
-  getters: {},
+  getters: {
+    
+  },
   mutations: {
     CLEAR_SIDO_LIST(state) {
       state.sidos = [{ value: null, text: "선택하세요" }];
