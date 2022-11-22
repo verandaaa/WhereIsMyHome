@@ -474,26 +474,26 @@ export default {
   background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
 .box1 {
-  height: 35px;
+  height: 32px;
   width: 60px;
-  border: 1px solid #0069d9;
+  border: 1px solid #1876d6;
   text-align: center;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   position: relative;
   border-radius: 5px 5px 0 0;
-  background-color: #0069d9;
+  background-color: #1876d6;
   line-height: 35px;
 }
 
 .box2 {
   height: 20px;
   width: 60px;
-  border: 1px solid #0069d9;
+  border: 1px solid #1876d6;
   text-align: center;
   color: #007bff;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   position: relative;
   border-radius: 0 0 5px 5px;
@@ -508,7 +508,7 @@ export default {
   position: absolute;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid #0069d9;
+  border-top: 5px solid #1876d6;
   border-bottom: 5px solid transparent;
   right: 40%;
   bottom: -10px;
@@ -536,7 +536,7 @@ export default {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   background: #fff;
   overflow: hidden;
-  z-index: 2;
+  z-index: 1;
 }
 #category li {
   float: left;

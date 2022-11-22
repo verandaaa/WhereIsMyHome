@@ -5,7 +5,10 @@
     </div>
 
     <b-tabs v-model="tabIndex" align="center">
-      <b-tab title="주소로 검색" :title-link-class="linkClass(0)"
+      <b-tab
+        title="주소로 검색"
+        :title-link-class="linkClass(0)"
+        @click="selectOptOne"
         ><div class="h-container">
           <div class="item">
             <b-form-select
@@ -35,7 +38,10 @@
           <b-button block variant="primary" @click="searchApt">검색</b-button>
         </div></b-tab
       >
-      <b-tab title="아파트명으로 검색" :title-link-class="linkClass(1)"
+      <b-tab
+        title="아파트명으로 검색"
+        :title-link-class="linkClass(1)"
+        @click="selectOptTwo"
         ><div class="s-container">
           <b-form-input
             v-model="aptName"
@@ -86,13 +92,13 @@ export default {
       "getDong",
       "getHouseList",
       "getHouseList2",
+      "selectOpt",
     ]),
     ...mapMutations(houseStore, [
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
       "CLEAR_DONG_LIST",
     ]),
-
     gugunList() {
       this.CLEAR_GUGUN_LIST();
       this.gugunCode = null;
@@ -120,6 +126,14 @@ export default {
       } else {
         return ["text-dark"];
       }
+    },
+    selectOptOne() {
+      // alert("주소로 검색 선택");
+      this.selectOpt(0);
+    },
+    selectOptTwo() {
+      // alert("아파트명으로 검색 선택");
+      this.selectOpt(1);
     },
   },
 };

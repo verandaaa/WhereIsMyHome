@@ -12,12 +12,12 @@ import { mapState, mapActions } from "vuex";
 const houseStore = "houseStore";
 
 export default {
-  name: "HouseSearchBar",
+  name: "HouseCurrentAdress",
   data() {
     return {};
   },
   computed: {
-    ...mapState(houseStore, ["region2depthName", "addressName"]),
+    ...mapState(houseStore, ["region2depthName", "addressName", "option"]),
   },
   watch: {
     region2depthName(newValue, oldValue) {
@@ -27,7 +27,8 @@ export default {
       if (!oldValue) oldValue = "0000000000";
 
       this.dongCode = nvd;
-      this.searchApt();
+      // console.log("현재선택: " + this.option);
+      if (this.option === 0) this.searchApt();
     },
   },
   methods: {

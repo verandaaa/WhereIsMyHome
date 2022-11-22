@@ -1,31 +1,36 @@
 <template>
   <div style="height: 100%">
-    <div style="height: 70px; border-bottom: 1.5px solid #d3d3d3">
-      <div><house-detail-title></house-detail-title></div>
+    <div style="height: 100px; border-bottom: 1.5px solid #d3d3d3">
+      <div style="height: 70px"><house-detail-title></house-detail-title></div>
+      <div style="height: 30px; background-color: #084895">
+        <b-row
+          ><b-col><a href="#hdm">메인 </a></b-col
+          ><b-col><a href="#hdg">차트 </a></b-col
+          ><b-col><a href="#hdp">목록 </a></b-col
+          ><b-col><a href="#hda">주변</a></b-col></b-row
+        >
+      </div>
     </div>
     <div
       style="
-        height: calc(100% - 70px);
+        height: calc(100% - 100px);
         overflow-x: hidden;
         overflow-y: auto;
         padding: 10px;
       "
       class="house-scroll"
     >
-      <div><house-detail-main></house-detail-main></div>
-      <div>
+      <div id="hdm"><house-detail-main></house-detail-main></div>
+      <div id="hdg">
         <house-detail-graph></house-detail-graph>
       </div>
-      <div><house-detail-around></house-detail-around></div>
+      <div id="hdp">
+        <house-detail-price></house-detail-price>
+      </div>
+      <div id="hda"><house-detail-around></house-detail-around></div>
+      <!-- <div style="height: 50px; background-color: gray"></div> -->
     </div>
   </div>
-
-  <!-- <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-1" title="Sidebar" shadow>
-      <house-detail-main></house-detail-main>
-      <house-detail-graph></house-detail-graph>
-      <house-detail-around></house-detail-around>
-    </b-sidebar> -->
 </template>
 
 <script>
@@ -33,6 +38,7 @@ import HouseDetailMain from "@/components/house/item/HouseDetailMain";
 import HouseDetailGraph from "@/components/house/item/HouseDetailGraph";
 import HouseDetailAround from "@/components/house/item/HouseDetailAround";
 import HouseDetailTitle from "@/components/house/item/HouseDetailTitle";
+import HouseDetailPrice from "@/components/house/item/HouseDetailPrice";
 
 export default {
   name: "HouseDetail",
@@ -41,6 +47,7 @@ export default {
     HouseDetailGraph,
     HouseDetailAround,
     HouseDetailTitle,
+    HouseDetailPrice,
   },
   data() {
     return {
@@ -50,7 +57,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .house-scroll::-webkit-scrollbar {
   width: 15px;
 }
@@ -64,5 +71,10 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: inset 0px 0px 2px white;
+}
+a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
 }
 </style>

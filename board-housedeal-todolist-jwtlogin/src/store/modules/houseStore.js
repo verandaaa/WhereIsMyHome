@@ -18,10 +18,9 @@ const houseStore = {
     region2depthName: null,
     open: false,
     addressName: null,
+    option: 0,
   },
-  getters: {
-    
-  },
+  getters: {},
   mutations: {
     CLEAR_SIDO_LIST(state) {
       state.sidos = [{ value: null, text: "선택하세요" }];
@@ -84,6 +83,9 @@ const houseStore = {
     },
     SET_DETAIL_OPEN(state) {
       state.open = true;
+    },
+    SET_SELECT_OPT(state, option) {
+      state.option = option;
     },
   },
   actions: {
@@ -200,6 +202,9 @@ const houseStore = {
     },
     detailOpen: ({ commit }) => {
       commit("SET_DETAIL_OPEN");
+    },
+    selectOpt: ({ commit }, option) => {
+      commit("SET_SELECT_OPT", option);
     },
   },
 };
