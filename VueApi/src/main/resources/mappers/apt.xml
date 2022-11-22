@@ -39,22 +39,26 @@
 	</select>
 
 	<!-- 특정 동의 아파트 코드별 가장 최근 매물에 대한 정보만 불러옵니다 -->	
-	<select id="getAptList" parameterType="HouseParameterDto" resultType="houseInfoDto">
+	<select id="getAptByAddress" parameterType="HouseParameterDto" resultType="houseInfoDto">
 		select hi.aptCode, hi.aptName, hi.buildYear, hi.dongName, hi.roadName, hi.jibun, hi.lng, hi.lat, hi.dongCode,
-		hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area, hd.floor, max(hd.dealDate) dealDate
-		from housedeal hd, houseinfo hi 
-		where hi.dongCode = #{dongCode} 
+		hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area, hd.floor, max(hd.dealDate) dealDate,
+        d.sidoName, d.gugunName        
+		from housedeal hd, houseinfo hi, dongcode d
+		where hi.dongCode = #{dongCode}
 		and hd.aptCode = hi.aptCode
-		group by hd.aptCode
+        and hi.dongCode = d.dongCode
+		group by hd.aptCode;
 	</select>
 	
-	<select id="getAptList2" parameterType="HouseParameterDto" resultType="houseInfoDto">
+	<select id="getAptByName" parameterType="HouseParameterDto" resultType="houseInfoDto">
 		select hi.aptCode, hi.aptName, hi.buildYear, hi.dongName, hi.roadName, hi.jibun, hi.lng, hi.lat, hi.dongCode,
-		hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area, hd.floor, max(hd.dealDate) dealDate
-		from housedeal hd, houseinfo hi 
-		where hi.aptName like concat ('%', #{aptName}, '%')
-		and hd.aptCode = hi.aptCode
-		group by hd.aptCode
+		hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area, hd.floor, max(hd.dealDate) dealDate,
+        d.sidoName, d.gugunName
+		from housedeal hd, houseinfo hi, dongcode d
+		where hi.aptName like concat ('%', #{aptName}, '%')        
+		and hd.aptCode = hi.aptCode        
+        and hi.dongCode = d.dongCode
+		group by hd.aptCode;
 	</select>
 	
 	

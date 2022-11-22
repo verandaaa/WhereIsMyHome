@@ -40,15 +40,15 @@ public class HouseMapServiceImpl implements HouseMapService {
 	}
 
 	@Override
-	public List<HouseInfoDto> getAptList(HouseParameterDto houseParameterDto) throws Exception {
+	public List<HouseInfoDto> getAptByAddress(HouseParameterDto houseParameterDto) throws Exception {
 		
-		return sqlSession.getMapper(HouseMapMapper.class).getAptList(houseParameterDto);
+		return sqlSession.getMapper(HouseMapMapper.class).getAptByAddress(houseParameterDto);
 	}
 
 	@Override
-	public List<HouseInfoDto> getAptList2(HouseParameterDto houseParameterDto) throws Exception {
+	public List<HouseInfoDto> getAptByName(HouseParameterDto houseParameterDto) throws Exception {
 		
-		return sqlSession.getMapper(HouseMapMapper.class).getAptList2(houseParameterDto);
+		return sqlSession.getMapper(HouseMapMapper.class).getAptByName(houseParameterDto);
 	}
 
 }

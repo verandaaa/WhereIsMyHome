@@ -52,6 +52,26 @@ public class HouseInfoDto {
 	@ApiModelProperty(value = "층수")
 	private int floor;
 	
+	// # dongcode 테이블 칼럼
+	
+	@ApiModelProperty(value = "시도 이름")
+	private String sidoName;
+	@ApiModelProperty(value = "구군 이름")
+	private String gugunName;
+	
+	
+	public String getSidoName() {
+		return sidoName;
+	}
+	public void setSidoName(String sidoName) {
+		this.sidoName = sidoName;
+	}
+	public String getGugunName() {
+		return gugunName;
+	}
+	public void setGugunName(String gugunName) {
+		this.gugunName = gugunName;
+	}
 	public long getAptCode() {
 		return aptCode;
 	}

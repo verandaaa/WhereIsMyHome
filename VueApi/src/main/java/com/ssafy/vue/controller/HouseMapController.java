@@ -58,19 +58,19 @@ public class HouseMapController {
 		return new ResponseEntity<List<SidoGugunDongCodeDto>>(houseMapService.getDongInGugun(gugun), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "아파트 목록", notes = "구군코드를 기준으로 아파트별 최근 거래목록을 반환한다.", response = List.class)
+	@ApiOperation(value = "아파트 목록", notes = "동코드를 기준으로 아파트별 최근 거래목록을 반환한다.", response = List.class)
 	@GetMapping("/house")
-	public ResponseEntity<List<HouseInfoDto>> aptList(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) HouseParameterDto houseParameterDto) throws Exception {	
+	public ResponseEntity<List<HouseInfoDto>> getAptByAddress(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) HouseParameterDto houseParameterDto) throws Exception {	
 		logger.info("house - 호출 {} ", houseParameterDto);
 		
-		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getAptList(houseParameterDto), HttpStatus.OK);
+		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getAptByAddress(houseParameterDto), HttpStatus.OK);
 	}
-	@ApiOperation(value = "아파트 목록", notes = "구군코드를 기준으로 아파트별 최근 거래목록을 반환한다.", response = List.class)
+	@ApiOperation(value = "아파트 목록", notes = "아파트이름 기준으로 아파트별 최근 거래목록을 반환한다.", response = List.class)
 	@GetMapping("/house2")
-	public ResponseEntity<List<HouseInfoDto>> aptList2(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) HouseParameterDto houseParameterDto) throws Exception {	
+	public ResponseEntity<List<HouseInfoDto>> getAptByName(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) HouseParameterDto houseParameterDto) throws Exception {	
 		logger.info("house - 호출 {} ", houseParameterDto);
 		
-		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getAptList2(houseParameterDto), HttpStatus.OK);
+		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getAptByName(houseParameterDto), HttpStatus.OK);
 	}
 
 	
