@@ -22,7 +22,12 @@
     >
       <div id="hdm"><house-detail-main></house-detail-main></div>
       <div id="hdg">
-        <house-detail-graph></house-detail-graph>
+        <house-detail-graph
+          :chartData="chartData"
+          :chartOptions="chartOptions"
+          :width="100"
+          :height="50"
+        ></house-detail-graph>
       </div>
       <div id="hdp">
         <house-detail-price></house-detail-price>
@@ -40,6 +45,11 @@ import HouseDetailAround from "@/components/house/item/HouseDetailAround";
 import HouseDetailTitle from "@/components/house/item/HouseDetailTitle";
 import HouseDetailPrice from "@/components/house/item/HouseDetailPrice";
 
+import { mapState } from "vuex";
+import { getYearlyPrice } from "@/api/house.js";
+
+const houseStore = "houseStore";
+
 export default {
   name: "HouseDetail",
   components: {
@@ -52,7 +62,52 @@ export default {
   data() {
     return {
       popupVal: false,
+      chartData: {
+        // 거래년도
+        labels: [],
+        datasets: [
+          {
+            label: "매매가격",
+            backgroundColor: "#f87979",
+            // 거래년도별 평균가격
+            data: [],
+            borderColor: "red",
+          },
+        ],
+      },
+      chartOptions: { responsive: true },
     };
+  },
+
+  computed: {
+    ...mapState(houseStore, ["house"]),
+  },
+
+  methods: {
+    setGraph() {
+      getYearlyPrice(
+        this.house.aptCode,
+        ({ data }) => {
+          console.log(data["year"]);
+          console.log(data["avgPrice"]);
+
+          this.chartData.labels = data["year"];
+          this.chartData.datasets[0].data = data["avgPrice"];
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  },
+  watch: {
+    house(newVal, oldVal) {
+      console.log("new :" + newVal + " / old : " + oldVal);
+      this.setGraph();
+    },
+  },
+  created() {
+    this.setGraph();
   },
 };
 </script>

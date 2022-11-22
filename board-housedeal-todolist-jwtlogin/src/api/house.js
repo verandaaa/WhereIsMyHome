@@ -30,4 +30,8 @@ function houseList2(params, success, fail) {
   api.get(`/map/house2`, { params: params }).then(success).catch(fail);
 }
 
-export { sidoList, gugunList, dongList, houseList, houseList2 };
+function getYearlyPrice(param, success, fail) {
+  api.get(`/deal/yearlyPrice/${param}`).then(success).catch(fail);
+}
+
+export { sidoList, gugunList, dongList, houseList, houseList2, getYearlyPrice };
