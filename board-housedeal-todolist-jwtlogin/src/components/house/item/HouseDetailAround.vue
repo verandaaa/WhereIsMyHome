@@ -258,10 +258,20 @@ export default {
 
 <style scopped>
 .what-facility-on {
-  border-bottom: 1px solid gray;
+  border-bottom: 2px solid #474747;
   margin: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+.what-facility-on:hover {
+  cursor: pointer;
 }
 .what-facility-off {
   margin: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+.what-facility-off:hover {
+  cursor: pointer;
 }
 </style>
