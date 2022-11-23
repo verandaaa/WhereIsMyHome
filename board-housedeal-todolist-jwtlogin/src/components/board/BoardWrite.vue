@@ -15,6 +15,7 @@
         </div>
       </b-col>
     </b-row>
+    <div style="height: 30px"></div>
     <board-input-item type="register" />
   </b-container>
 </template>

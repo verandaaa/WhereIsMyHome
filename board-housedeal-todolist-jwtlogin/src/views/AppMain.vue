@@ -10,14 +10,7 @@
           #아파트 #좋아요 #몇층 #얼마<br />#즐찾 #어디 #싸다
         </div>
         <div class="part-5">
-          <span class="mv-house"
-            ><router-link
-              :to="{ name: 'house' }"
-              style="text-decoration: none; color: white"
-            >
-              아파트 보러가기
-            </router-link></span
-          >
+          <router-link :to="{ name: 'house' }"> 아파트 보러가기 </router-link>
         </div>
       </div>
     </div>
@@ -82,11 +75,17 @@ export default {
   font-size: 20px;
   margin: 10px;
 }
-.mv-house {
+a {
   font-size: 16px;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  text-decoration: none;
+  color: white;
 }
 </style>

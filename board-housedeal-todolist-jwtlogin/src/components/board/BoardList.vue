@@ -15,11 +15,10 @@
         </div>
       </b-col>
     </b-row>
+    <div style="height: 30px"></div>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="moveWrite()"
-          >글쓰기</b-button
-        >
+        <button @click="moveWrite()">글쓰기</button>
       </b-col>
     </b-row>
     <b-row>
@@ -136,5 +135,19 @@ export default {
   transform: translate(-50%, -50%);
   font-size: 20px;
   text-align: center;
+}
+button {
+  border: none;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+  border: 2px solid rgb(177, 177, 177);
+}
+button:hover {
+  background-color: rgb(199, 199, 199);
+}
+a {
+  text-decoration: none;
+  color: rgb(36, 36, 36);
 }
 </style>

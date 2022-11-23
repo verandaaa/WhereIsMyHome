@@ -15,23 +15,14 @@
         </div>
       </b-col>
     </b-row>
+    <div style="height: 30px"></div>
     <b-row class="mb-1">
       <b-col class="text-left" v-if="userInfo.userid === article.userid">
-        <b-button
-          variant="outline-info"
-          size="sm"
-          @click="moveModifyArticle"
-          class="mr-2"
-          >글수정</b-button
-        >
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle"
-          >글삭제</b-button
-        >
+        <button @click="moveModifyArticle" class="mr-2">글수정</button>
+        <button @click="deleteArticle">글삭제</button>
       </b-col>
       <b-col class="text-right">
-        <b-button variant="outline-primary" size="sm" @click="moveList"
-          >글목록</b-button
-        >
+        <button @click="moveList">글목록</button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -161,5 +152,15 @@ export default {
   transform: translate(-50%, -50%);
   font-size: 20px;
   text-align: center;
+}
+button {
+  border: none;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+  border: 2px solid rgb(177, 177, 177);
+}
+button:hover {
+  background-color: rgb(199, 199, 199);
 }
 </style>

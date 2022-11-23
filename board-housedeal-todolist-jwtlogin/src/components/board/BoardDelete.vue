@@ -15,6 +15,7 @@
         </div>
       </b-col>
     </b-row>
+    <div style="height: 30px"></div>
     <b-row>
       <b-col><b-alert show variant="danger">삭제처리중...</b-alert></b-col>
     </b-row>

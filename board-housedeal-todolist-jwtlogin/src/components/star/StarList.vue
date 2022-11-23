@@ -15,6 +15,7 @@
         </div>
       </b-col>
     </b-row>
+    <div style="height: 30px"></div>
     <b-row>
       <b-col>
         <b-table
@@ -49,13 +50,7 @@
           </template>
 
           <template #cell(deletebtn)="data">
-            <b-button
-              size="sm"
-              @click="delConfirm(data.item.aptCode)"
-              class="mr-2"
-            >
-              삭제
-            </b-button>
+            <button @click="delConfirm(data.item.aptCode)">삭제</button>
           </template>
         </b-table>
         <b-pagination
@@ -157,7 +152,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .tdClass {
   width: 50px;
   text-align: center;
@@ -179,5 +174,15 @@ export default {
   transform: translate(-50%, -50%);
   font-size: 20px;
   text-align: center;
+}
+button {
+  border: none;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+  border: 2px solid rgb(177, 177, 177);
+}
+button:hover {
+  background-color: rgb(199, 199, 199);
 }
 </style>

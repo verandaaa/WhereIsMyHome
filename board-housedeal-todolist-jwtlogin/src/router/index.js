@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import AppMain from "@/views/AppMain";
-import AppInstagram from "@/views/AppInstagram";
+import AppLocal from "@/views/AppLocal";
+import AppNews from "@/views/AppNews";
 import AppHouse from "@/views/AppHouse";
 
 import store from "@/store";
@@ -36,9 +37,14 @@ const routes = [
     component: AppMain,
   },
   {
-    path: "/instagram",
-    name: "insta",
-    component: AppInstagram,
+    path: "/local",
+    name: "local",
+    component: AppLocal,
+  },
+  {
+    path: "/news",
+    name: "news",
+    component: AppNews,
   },
   {
     path: "/house",

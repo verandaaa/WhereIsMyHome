@@ -33,17 +33,9 @@
           ></b-form-textarea>
         </b-form-group>
 
-        <b-button
-          type="submit"
-          variant="primary"
-          class="m-1"
-          v-if="this.type === 'register'"
-          >글작성</b-button
-        >
-        <b-button type="submit" variant="primary" class="m-1" v-else
-          >글수정</b-button
-        >
-        <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
+        <button type="submit" v-if="this.type === 'register'">글작성</button>
+        <button type="submit" v-else>글수정</button>
+        <button type="reset">초기화</button>
       </b-form>
     </b-col>
   </b-row>
@@ -170,4 +162,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+button {
+  border: none;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+  border: 2px solid rgb(177, 177, 177);
+  margin: 0 10px 0 0;
+}
+button:hover {
+  background-color: rgb(199, 199, 199);
+}
+</style>
