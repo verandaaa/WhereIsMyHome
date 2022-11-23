@@ -62,8 +62,8 @@
 	</select>
 	
 	<select id="getHouseInfoList"  resultType="houseInfoDto">
-		select aptName, dongName
-		from houseinfo 
+		select distinct aptName
+		from houseinfo
 	</select>
 	
 	

@@ -24,7 +24,7 @@
 	</insert>
 	
 	<select id="getStar" parameterType="StarParameterDto" resultType ="int">
-		select count(*) 
+		select count(*)
 		from star
 		where userid = #{userId} 
 		and aptCode = #{aptCode}

@@ -11,7 +11,7 @@ import com.ssafy.vue.model.StarParameterDto;
 @Mapper
 public interface StarMapper {
 
-	public boolean addStar(StarParameterDto starParameterDto) throws SQLException;
+	public int addStar(StarParameterDto starParameterDto) throws SQLException;
 
 	public List<StarDto> listStar(String userid) throws SQLException;
 

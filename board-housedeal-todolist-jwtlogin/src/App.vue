@@ -7,11 +7,29 @@
 
 <script>
 import TheHeaderNavbar from "@/components/TheHeaderNavbar";
+import { mapActions, mapState } from "vuex";
+
+const houseStore = "houseStore";
 
 export default {
   name: "App",
   components: {
     TheHeaderNavbar,
+  },
+  computed: {
+    ...mapState(houseStore, ["houseinfos"]),
+  },
+  methods: {
+    ...mapActions(houseStore, ["getHouseInfos"]),
+  },
+  created() {
+    if (this.houseinfos.length == 0) {
+      // console.log(this.houseinfos);
+      // console.log(this.houseinfos.length, "배열 길이 0");
+      this.getHouseInfos();
+    } else {
+      // console.log(this.houseinfos.length, "배열 길이 0 초과");
+    }
   },
 };
 </script>

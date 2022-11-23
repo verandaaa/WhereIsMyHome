@@ -34,7 +34,7 @@ public class StarServiceImpl implements StarService {
 	}
 
 	@Override
-	public boolean addStar(StarParameterDto starParameterDto) throws Exception {
+	public int addStar(StarParameterDto starParameterDto) throws Exception {
 		return starMapper.addStar(starParameterDto);
 		
 	}

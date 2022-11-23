@@ -65,9 +65,10 @@ const houseStore = {
     },
 
     SET_HOUSE_INFO_LIST(state, houseinfos) {
-      console.log("SET_HOUSE_INFO_LIST 도착");
       houseinfos.forEach((houseinfo) => {
-        state.houses.push(houseinfo.aptName + houseinfo.dongName);
+        state.houseinfos.push(houseinfo.aptName);
+        //  + " " + houseinfo.dongName -> 주소도 넣으려면 받아서 같이 push
+        //  but aptName 검색으로 연결되어있어 일단 뺌
       });
     },
 
@@ -161,8 +162,6 @@ const houseStore = {
       houseList(
         params,
         ({ data }) => {
-          console.log("DB에서 동코드에 해당하는 최근 매물 목록 불러옴");
-          console.log(data);
           commit("SET_HOUSE_LIST", data);
         },
         (error) => {

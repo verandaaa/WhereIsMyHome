@@ -42,24 +42,37 @@
         title="아파트명으로 검색"
         :title-link-class="linkClass(1)"
         @click="selectOptTwo"
-        ><div class="s-container">
+      >
+        <div class="fas fa-search s-container">
           <b-form-input
             v-model="aptName"
-            @keyup="gal"
+            @keyup="submitAutoComplete"
+            @click="submitAutoComplete"
             placeholder="아파트 이름"
           ></b-form-input>
         </div>
+
         <div>
           <b-button block variant="primary" @click="searchApt2">검색</b-button>
-        </div></b-tab
-      >
+        </div>
+      </b-tab>
     </b-tabs>
+
+    <div v-show="completeDiv" class="autocomplete disabled house-scroll">
+      <div
+        v-for="(res, i) in result"
+        @click="keywordAdd(res)"
+        style="cursor: pointer"
+        :key="i"
+      >
+        {{ res }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
-import skills from "@/api/skills.js";
 
 const houseStore = "houseStore";
 
@@ -78,16 +91,28 @@ export default {
       ],
       tabIndex: 0,
 
-      skillInput: null,
+      keywordInput: null,
       result: null,
+      completeDiv: false,
     };
   },
   computed: {
-    ...mapState(houseStore, ["sidos", "guguns", "dongs"]),
+    ...mapState(houseStore, ["sidos", "guguns", "dongs", "houseinfos"]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
     this.getSido();
+  },
+
+  watch: {
+    aptName() {
+      // console.log("new :" + newVal + " / old : " + oldVal);
+      if (!this.aptName) {
+        const autocomplete = document.querySelector(".autocomplete");
+        autocomplete.classList.add("disabled");
+        this.completeDiv = false;
+      }
+    },
   },
   methods: {
     ...mapActions(houseStore, [
@@ -119,7 +144,10 @@ export default {
       if (this.dongCode) this.getHouseList(this.dongCode);
     },
     searchApt2() {
-      if (this.aptName) this.getHouseList2(this.aptName);
+      if (this.aptName) {
+        this.completeDiv = false;
+        this.getHouseList2(this.aptName);
+      }
     },
     gal() {
       console.log(this.aptName);
@@ -133,6 +161,10 @@ export default {
     },
     selectOptOne() {
       // alert("주소로 검색 선택");
+      this.completeDiv = false;
+      const autocomplete = document.querySelector(".autocomplete");
+      autocomplete.classList.add("disabled");
+      this.aptName = "";
       this.selectOpt(0);
     },
     selectOptTwo() {
@@ -142,14 +174,24 @@ export default {
 
     submitAutoComplete() {
       const autocomplete = document.querySelector(".autocomplete");
-      if (this.skillInput) {
+      if (this.aptName) {
         autocomplete.classList.remove("disabled");
-        this.result = skills.filter((skill) => {
-          return skill.match(new RegExp("^" + this.skillInput, "i"));
+        this.completeDiv = true; //is-show: true
+        // console.log(this.result, "자동완성 실행 전");
+        this.result = this.houseinfos.filter((houseinfo) => {
+          return houseinfo.match(new RegExp("^" + this.aptName, "i"));
         });
+        // console.log(this.result, "자동완성 실행 후");
       } else {
+        this.completeDiv = false;
         autocomplete.classList.add("disabled");
       }
+    },
+
+    keywordAdd(res) {
+      console.log(res);
+      this.aptName = res;
+      this.completeDiv = false;
     },
   },
 };

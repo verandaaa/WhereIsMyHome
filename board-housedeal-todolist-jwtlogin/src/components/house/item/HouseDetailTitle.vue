@@ -60,7 +60,7 @@ export default {
   created() {
     this.param.aptCode = this.house.aptCode;
     this.param.userId = this.userInfo.userid;
-
+    console.log("created title");
     console.log(this.param);
     getStar(
       this.param,
@@ -70,12 +70,35 @@ export default {
           this.hasStar = true;
         } else {
           console.log("getStar 도착", data);
+          this.hasStar = false;
         }
       },
       (error) => {
         console.log(error);
       }
     );
+  },
+
+  watch: {
+    house() {
+      console.log("house 바뀜", this.house.aptCode);
+      this.param.aptCode = this.house.aptCode;
+      getStar(
+        this.param,
+        ({ data }) => {
+          if (data === "success") {
+            console.log("getStar 도착", data);
+            this.hasStar = true;
+          } else {
+            console.log("getStar 도착", data);
+            this.hasStar = false;
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 
   mounted() {},
@@ -93,17 +116,24 @@ export default {
     },
     mvAddStar() {
       console.log("addStar 도착", this.param);
-      addStar(
-        this.param,
-        ({ data }) => {
-          if (data === "success") {
-            this.hasStar = true;
+      if (!this.param.userId) {
+        alert("로그인이 필요합니다");
+        this.$router.push({ name: "login" });
+      } else {
+        addStar(
+          this.param,
+          ({ data }) => {
+            if (data === "success") {
+              console.log("success", data);
+              this.hasStar = true;
+            }
+          },
+          (error) => {
+            alert("로그인이 필요합니다");
+            console.log(error);
           }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        );
+      }
     },
 
     mvDeleteStar() {

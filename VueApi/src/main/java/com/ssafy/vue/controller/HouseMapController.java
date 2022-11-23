@@ -24,7 +24,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@CrossOrigin(origins = { "*" }, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.POST} , maxAge = 6000)
+@CrossOrigin(origins = { "*" }, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE} , maxAge = 6000)
 @RestController
 @RequestMapping("/map")
 @Api("Map 컨트롤러  API V1")
@@ -65,6 +65,7 @@ public class HouseMapController {
 		
 		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getAptByAddress(houseParameterDto), HttpStatus.OK);
 	}
+	
 	@ApiOperation(value = "아파트 목록", notes = "아파트이름 기준으로 아파트별 최근 거래목록을 반환한다.", response = List.class)
 	@GetMapping("/house2")
 	public ResponseEntity<List<HouseInfoDto>> getAptByName(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) HouseParameterDto houseParameterDto) throws Exception {	
@@ -74,7 +75,7 @@ public class HouseMapController {
 	}
 	
 	@ApiOperation(value = "hosueInfo DB 전부 반환", notes = "아파트 정보를 반환한다.", response = List.class)
-	@GetMapping("/map/houseinfo")
+	@GetMapping("/houseinfo")
 	public ResponseEntity<List<HouseInfoDto>> getHouseInfoList() throws Exception {	
 		logger.info("houseInfoList - 호출 {} ");
 		

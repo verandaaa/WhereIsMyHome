@@ -21,7 +21,7 @@ export default {
   },
   watch: {
     region2depthName(newValue, oldValue) {
-      console.log("new : " + newValue + " / old : " + oldValue);
+      // console.log("new : " + newValue + " / old : " + oldValue);
 
       const nvd = newValue;
       if (!oldValue) oldValue = "0000000000";

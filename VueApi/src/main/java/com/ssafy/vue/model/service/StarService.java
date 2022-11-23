@@ -8,7 +8,7 @@ import com.ssafy.vue.model.StarParameterDto;
 
 public interface StarService {
 
-	boolean addStar(StarParameterDto starParameterDto) throws Exception;
+	int addStar(StarParameterDto starParameterDto) throws Exception;
 
 	List<StarDto> listStar(String userid) throws Exception;
 
