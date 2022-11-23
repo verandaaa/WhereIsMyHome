@@ -72,6 +72,14 @@ public class HouseMapController {
 		
 		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getAptByName(houseParameterDto), HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "hosueInfo DB 전부 반환", notes = "아파트 정보를 반환한다.", response = List.class)
+	@GetMapping("/map/houseinfo")
+	public ResponseEntity<List<HouseInfoDto>> getHouseInfoList() throws Exception {	
+		logger.info("houseInfoList - 호출 {} ");
+		
+		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getHouseInfoList(), HttpStatus.OK);
+	}
 
 	
 	@GetMapping("/apt")

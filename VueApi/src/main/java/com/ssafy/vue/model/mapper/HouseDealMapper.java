@@ -15,5 +15,7 @@ import com.ssafy.vue.model.SidoGugunDongCodeDto;
 public interface HouseDealMapper {
 
 	List<HouseDealInfoDto> getYearlyPrice(long aptCode) throws SQLException;
+
+	List<HouseDealInfoDto> getDealList(long aptCode) throws SQLException;
 	
 }

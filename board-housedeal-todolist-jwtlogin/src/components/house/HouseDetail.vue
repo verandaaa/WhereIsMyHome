@@ -84,7 +84,9 @@ export default {
           },
         ],
       },
-      chartOptions: { responsive: true },
+      chartOptions: {
+        responsive: true,
+      },
     };
   },
 

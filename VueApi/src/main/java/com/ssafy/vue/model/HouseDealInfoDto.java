@@ -6,7 +6,7 @@ import lombok.Data;
 
 
 
-@ApiModel(value = "HouseInfoDto : 아파트정보", description = "아파트의 상세 정보를 나타낸다.")
+@ApiModel(value = "HouseDealInfoDto : 거래정보", description = "아파트의 거래정보를 나타낸다.")
 public class HouseDealInfoDto {
 
 	// # housedeal 테이블 칼럼

@@ -54,32 +54,12 @@
         </div></b-tab
       >
     </b-tabs>
-
-    <!-- 검색어 자동완성 실험 -->
-    <i class="fas fa-search">
-      <input
-        v-model="skillInput"
-        @input="submitAutoComplete"
-        type="text"
-        style="margin-bottom: 15px"
-      />
-    </i>
-    <div class="autocomplete disabled">
-      <div
-        @click="searchSkillAdd"
-        style="cursor: pointer"
-        v-for="(res, i) in result"
-        :key="i"
-      >
-        {{ res }}
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
-// import skills from "@/api/skills.js";
+import skills from "@/api/skills.js";
 
 const houseStore = "houseStore";
 
@@ -103,7 +83,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(houseStore, ["sidos", "guguns", "dongs", "houseinfos"]),
+    ...mapState(houseStore, ["sidos", "guguns", "dongs"]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
@@ -164,9 +144,8 @@ export default {
       const autocomplete = document.querySelector(".autocomplete");
       if (this.skillInput) {
         autocomplete.classList.remove("disabled");
-        console.log(this.houseinfos);
-        this.result = this.houseinfos.filter((house) => {
-          return house.match(new RegExp("^" + this.skillInput, "i"));
+        this.result = skills.filter((skill) => {
+          return skill.match(new RegExp("^" + this.skillInput, "i"));
         });
       } else {
         autocomplete.classList.add("disabled");

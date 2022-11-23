@@ -4,6 +4,7 @@ import {
   dongList,
   houseList,
   houseList2,
+  houseInfoList,
 } from "@/api/house.js";
 
 const houseStore = {
@@ -14,6 +15,7 @@ const houseStore = {
     dongs: [{ value: null, text: "선택하세요" }],
     houses: [],
     house: null,
+    houseinfos: [],
     region1depthName: null,
     region2depthName: null,
     open: false,
@@ -61,6 +63,14 @@ const houseStore = {
         state.dongs.push({ value: dong.dongCode, text: dong.dongName });
       });
     },
+
+    SET_HOUSE_INFO_LIST(state, houseinfos) {
+      console.log("SET_HOUSE_INFO_LIST 도착");
+      houseinfos.forEach((houseinfo) => {
+        state.houses.push(houseinfo.aptName + houseinfo.dongName);
+      });
+    },
+
     SET_HOUSE_LIST(state, houses) {
       state.houses = houses;
     },
@@ -89,6 +99,16 @@ const houseStore = {
     },
   },
   actions: {
+    getHouseInfos: ({ commit }) => {
+      houseInfoList(
+        ({ data }) => {
+          commit("SET_HOUSE_INFO_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
     getSido: ({ commit }) => {
       sidoList(
         ({ data }) => {
@@ -129,25 +149,6 @@ const houseStore = {
         }
       );
     },
-
-    // # 공공데이터 API 이용
-    // getHouseList: ({ commit }, gugunCode) => {
-    //   const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
-    //   const params = {
-    //     LAWD_CD: gugunCode,
-    //     DEAL_YMD: "202207",
-    //     serviceKey: decodeURIComponent(SERVICE_KEY),
-    //   };
-    //   houseList(
-    //     params,
-    //     ({ data }) => {
-    //       commit("SET_HOUSE_LIST", data.response.body.items.item);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // },
 
     // # DB 이용
     getHouseList: ({ commit }, dongCode) => {

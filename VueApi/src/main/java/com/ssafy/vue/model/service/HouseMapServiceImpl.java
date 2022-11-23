@@ -51,4 +51,9 @@ public class HouseMapServiceImpl implements HouseMapService {
 		return sqlSession.getMapper(HouseMapMapper.class).getAptByName(houseParameterDto);
 	}
 
+	@Override
+	public List<HouseInfoDto> getHouseInfoList() throws Exception {
+		return sqlSession.getMapper(HouseMapMapper.class).getHouseInfoList();
+	}
+
 }

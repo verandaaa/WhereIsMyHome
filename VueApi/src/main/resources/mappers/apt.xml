@@ -61,6 +61,11 @@
 		group by hd.aptCode;
 	</select>
 	
+	<select id="getHouseInfoList"  resultType="houseInfoDto">
+		select aptName, dongName
+		from houseinfo 
+	</select>
+	
 	
 	
 </mapper>

@@ -8,7 +8,14 @@
 	   	select TRUNCATE(avg(convert(replace(dealAmount, ',', ''), unsigned)), -1) dealAmount, dealYear 
    		from housedeal 
    		where aptCode = #{aptCode}
-   		group by dealYear;
+   		group by dealYear
+	</select>
+	
+	<select id="getDealList" resultType="HouseDealInfoDto">
+	   	select TRUNCATE(convert(replace(dealAmount, ',', ''), unsigned), -1) dealAmount, dealDate, floor, area 
+   		from housedeal 
+   		where aptCode = #{aptCode}
+   		order by dealDate desc
 	</select>
 	
 	

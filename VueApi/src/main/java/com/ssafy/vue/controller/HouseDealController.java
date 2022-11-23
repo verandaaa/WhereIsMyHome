@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.vue.model.HouseDealInfoDto;
 import com.ssafy.vue.model.service.HouseDealService;
 
 import io.swagger.annotations.Api;
@@ -41,5 +42,11 @@ public class HouseDealController {
 		return new ResponseEntity<Map<String, List<Integer>>>(houseDealService.getYearlyPrice(aptCode), HttpStatus.OK);
 	}
 
-
+	@ApiOperation(value = "아파트 목록", notes = "아파트코드를 기준으로 연도별 평균 거래금액을 반환한다.", response = List.class)
+	@GetMapping("/{aptCode}")
+	public ResponseEntity<List<HouseDealInfoDto>> getDealList(@PathVariable("aptCode") @ApiParam(value = "거래기록을 얻기위한 부가정보.", required = true) long aptCode) throws Exception {	
+		logger.info("getDealList - 호출 {} ");
+		
+		return new ResponseEntity<List<HouseDealInfoDto>>(houseDealService.getDealList(aptCode), HttpStatus.OK);
+	}
 }

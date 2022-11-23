@@ -37,6 +37,11 @@ public class HouseDealServiceImpl implements HouseDealService {
 		return map;
 	}
 
+	@Override
+	public List<HouseDealInfoDto> getDealList(long aptCode) throws Exception {
+		return sqlSession.getMapper(HouseDealMapper.class).getDealList(aptCode);
+	}
+
 
 
 
