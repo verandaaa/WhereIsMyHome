@@ -11,7 +11,7 @@
           ></router-link>
         </b-col>
         <b-col cols="8" id="col-nav"
-          ><router-link :to="{ name: 'board' }"> 게시판 </router-link>
+          ><router-link :to="{ name: 'board' }"> 공지사항 </router-link>
           <router-link :to="{ name: 'house' }"> 아파트정보 </router-link>
           <router-link :to="{ name: 'insta' }"> 임시메뉴 </router-link>
           <router-link :to="{ name: 'insta' }"> 임시메뉴 </router-link>

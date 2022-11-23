@@ -2,7 +2,17 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert show><h3>관심매물 목록</h3></b-alert>
+        <div class="user-wrap">
+          <div class="user-image">
+            <b-img
+              :src="require('@/assets/houses.jpg')"
+              style="width: 100%; border-radius: 15px; filter: brightness(50%)"
+            ></b-img>
+          </div>
+          <div class="user-text">
+            <p style="color: white; font-size: 36px">관심목록</p>
+          </div>
+        </div>
       </b-col>
     </b-row>
     <b-row>
@@ -150,6 +160,24 @@ export default {
 <style scope>
 .tdClass {
   width: 50px;
+  text-align: center;
+}
+.user-wrap {
+  width: 100%;
+  margin: 10px auto;
+  position: relative;
+}
+.user-wrap img {
+  width: 100%;
+  vertical-align: middle;
+}
+.user-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
   text-align: center;
 }
 </style>

@@ -9,7 +9,16 @@
         <div class="part-4">
           #아파트 #좋아요 #몇층 #얼마<br />#즐찾 #어디 #싸다
         </div>
-        <div class="part-5"><span class="mv-house">아파트 보러 가기</span></div>
+        <div class="part-5">
+          <span class="mv-house"
+            ><router-link
+              :to="{ name: 'house' }"
+              style="text-decoration: none; color: white"
+            >
+              아파트 보러가기
+            </router-link></span
+          >
+        </div>
       </div>
     </div>
   </div>

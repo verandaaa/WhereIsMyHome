@@ -1,82 +1,73 @@
 <template>
-  <div class="container">
-    <div style="height: 70px"></div>
-    <div class="row justify-content-center">
-      <div class="col-lg-5 col-md-10 col-sm-12">
-        <h2 class="my-3 py-3 shadow-sm bg-light text-center">
-          <mark class="orange">회원가입</mark>
-        </h2>
-      </div>
-      <div class="w-100"></div>
-      <div style="height: 20px"></div>
-      <div class="col-lg-5 col-md-10 col-sm-12">
-        <form
-          id="form-join"
-          method="POST"
-          action=""
-          @submit.prevent="registerUser"
-        >
-          <div class="mb-3">
-            <label for="username" class="form-label">이름 : </label>
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              name="userName"
-              placeholder="이름..."
-              v-model="user.username"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="userid" class="form-label">아이디 : </label>
-            <input
-              type="text"
-              class="form-control"
-              id="userid"
-              name="userId"
-              placeholder="아이디..."
-              v-model="user.userid"
-              ref="id"
-              @keyup="idConfirm"
-            />
-          </div>
+  <div class="ct">
+    <div class="center">
+      <h1>Join</h1>
+      <form
+        id="form-join"
+        method="POST"
+        action=""
+        @submit.prevent="registerUser"
+      >
+        <div class="txt_field">
+          <input
+            type="text"
+            id="username"
+            name="userName"
+            placeholder="name"
+            v-model="user.username"
+            required
+          />
+          <span></span>
+          <label>name</label>
+        </div>
+        <div class="txt_field">
+          <input
+            type="text"
+            id="userid"
+            name="userId"
+            placeholder="ID"
+            v-model="user.userid"
+            ref="id"
+            @keyup="idConfirm"
+            required
+          />
+          <span></span>
+          <label>ID</label>
+        </div>
+        <div style="text-align: left">
           <div
             v-bind:class="{ success: isSuccess, fail: isFail }"
             v-bind:style="myStyle"
             v-html="msg"
           ></div>
-          <div class="mb-3">
-            <label for="userpwd" class="form-label">비밀번호 : </label>
-            <input
-              type="password"
-              class="form-control"
-              id="userpwd"
-              name="userPwd"
-              placeholder="비밀번호..."
-              v-model="user.userpwd"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="emailid" class="form-label">이메일 : </label>
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                id="emailid"
-                name="emailId"
-                placeholder="이메일아이디"
-                v-model="user.emailId"
-              />
-              <span class="input-group-text">@</span>
-              <b-form-select
-                v-model="user.emailDomain"
-                :options="domains"
-              ></b-form-select>
-            </div>
-          </div>
-          <button type="submit">보내기</button>
-        </form>
-      </div>
+        </div>
+        <div class="txt_field">
+          <input
+            type="password"
+            id="userpwd"
+            name="userPwd"
+            placeholder="password"
+            v-model="user.userpwd"
+            required
+          />
+          <span></span>
+          <label>password</label>
+        </div>
+        <div class="txt_field">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="email"
+            v-model="user.email"
+            required
+          />
+          <span></span>
+          <label>email</label>
+        </div>
+
+        <button type="submit">회원가입</button>
+      </form>
     </div>
   </div>
 </template>
@@ -93,16 +84,14 @@ export default {
         username: "",
         userid: "",
         userpwd: "",
-        emailId: "",
-        emailDomain: "",
+        email: "",
       },
-      domains: ["ssafy.com", "google.com", "naver.com", "kakao.com"],
       list: [],
       msg: "",
       isSuccess: false,
       isFail: false,
       myStyle: {
-        fontSize: "25px",
+        fontSize: "15px",
       },
     };
   },
@@ -113,7 +102,7 @@ export default {
         username: this.user.username,
         userid: this.user.userid,
         userpwd: this.user.userpwd,
-        email: this.user.emailId + "@" + this.user.emailDomain,
+        email: this.user.email,
       };
       register(
         param,
@@ -162,4 +151,125 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.ct {
+  margin: 0;
+  padding: 0;
+  background-color: #efeff0;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+  padding: 0 0 40px 0;
+}
+.center h1 {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid silver;
+}
+.center form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+form .txt_field {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+.txt_field input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+.txt_field label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.txt_field span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: 0.5s;
+}
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label {
+  top: -5px;
+  color: #2691d9;
+}
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before {
+  width: 100%;
+}
+.pass {
+  margin: -5px 0 20px 5px;
+  color: #a6a6a6;
+  cursor: pointer;
+}
+.pass:hover {
+  text-decoration: underline;
+}
+button[type="submit"] {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2691d9;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+button[type="submit"]:hover {
+  border-color: #2691d9;
+  transition: 0.5s;
+}
+.signup_link {
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #666666;
+}
+.signup_link span {
+  color: #2691d9;
+  text-decoration: none;
+}
+.signup_link span:hover {
+  color: #165d8d;
+  cursor: pointer;
+}
+.success {
+  color: dodgerblue;
+}
+
+.fail {
+  color: rgb(180, 0, 0);
+}
+</style>
