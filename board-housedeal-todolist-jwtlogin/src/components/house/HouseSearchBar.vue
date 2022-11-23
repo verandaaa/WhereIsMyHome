@@ -44,21 +44,27 @@
         @click="selectOptTwo"
       >
         <div class="fas fa-search s-container">
-          <b-form-input
-            v-model="aptName"
-            @keyup="submitAutoComplete"
-            @click="submitAutoComplete"
-            placeholder="아파트 이름"
-          ></b-form-input>
-        </div>
-
-        <div>
-          <b-button block variant="primary" @click="searchApt2">검색</b-button>
+          <div class="item">
+            <b-form-input
+              v-model="aptName"
+              @keyup="submitAutoComplete"
+              @click="submitAutoComplete"
+              placeholder="아파트 이름"
+              style="width: 270px"
+            ></b-form-input>
+          </div>
+          <div class="item">
+            <b-button variant="primary" @click="searchApt2">검색</b-button>
+          </div>
         </div>
       </b-tab>
     </b-tabs>
 
-    <div v-show="completeDiv" class="autocomplete disabled house-scroll">
+    <div
+      v-show="completeDiv"
+      class="autocomplete disabled list-scroll"
+      style="height: 200px; overflow-y: auto"
+    >
       <div
         v-for="(res, i) in result"
         @click="keywordAdd(res)"
@@ -225,6 +231,42 @@ export default {
 }
 
 .s-container {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
   margin: 13.5px 0;
+}
+.s-container:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+.s-container .item {
+  float: left;
+  text-align: left;
+  margin: 5px;
+}
+.s-container .item.last {
+  float: right;
+  border-right: none;
+}
+.list-scroll {
+  text-align: left;
+  padding: 0 15px;
+}
+
+.list-scroll::-webkit-scrollbar {
+  width: 20px;
+}
+.list-scroll::-webkit-scrollbar-thumb {
+  background-color: #e2e2e2;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 4px solid transparent;
+}
+.list-scroll::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 2px white;
 }
 </style>

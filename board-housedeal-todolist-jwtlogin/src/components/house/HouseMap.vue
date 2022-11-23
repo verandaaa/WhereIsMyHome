@@ -193,7 +193,9 @@ export default {
         );
         const b = document.createElement("div");
         b.className = "box2 sb9";
-        b.appendChild(document.createTextNode(item.dealYear + "년"));
+        b.appendChild(
+          document.createTextNode(item.dealDate.substring(0, 4) + "년")
+        );
         content.appendChild(a);
         content.appendChild(b);
 

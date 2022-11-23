@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>주변정보(1km 내)</h3>
+    <h3 style="margin: 0 0 25px 0">주변정보(1km 내)</h3>
     <div id="map2" style="width: 100%; height: 250px"></div>
     <div>
       <b-row>
@@ -81,7 +81,7 @@ export default {
       const container2 = document.getElementById("map2");
       const options2 = {
         center: new kakao.maps.LatLng(this.house.lat, this.house.lng),
-        level: 3,
+        level: 6,
       };
       this.map2 = new kakao.maps.Map(container2, options2);
 
@@ -125,14 +125,21 @@ export default {
       if (status === kakao.maps.services.Status.OK) {
         let info1 = document.getElementById("info1");
         let category = document.createElement("div");
+        category.className = "category";
         let type = document.createElement("h4");
-        type.innerText = `${data[0].category_group_name}`;
+        type.innerText = `[${data[0].category_group_name}]`;
         category.appendChild(type);
 
         for (var i = 0; i < data.length; i++) {
           let content = document.createElement("div");
-          content.innerText += `${data[i].place_name}`;
-          content.innerText += `${data[i].distance}m`;
+          let child1 = document.createElement("span");
+          let child2 = document.createElement("span");
+          child1.innerText += `${data[i].place_name}`;
+          child1.className = "child1";
+          child2.innerText += ` ${data[i].distance}m`;
+          child2.className = "child2";
+          content.appendChild(child1);
+          content.appendChild(child2);
           category.appendChild(content);
         }
         info1.appendChild(category);
@@ -142,14 +149,21 @@ export default {
       if (status === kakao.maps.services.Status.OK) {
         let info2 = document.getElementById("info2");
         let category = document.createElement("div");
+        category.className = "category";
         let type = document.createElement("h4");
-        type.innerText = `${data[0].category_group_name}`;
+        type.innerText = `[${data[0].category_group_name}]`;
         category.appendChild(type);
 
         for (var i = 0; i < data.length; i++) {
           let content = document.createElement("div");
-          content.innerText += `${data[i].place_name}`;
-          content.innerText += `${data[i].distance}m`;
+          let child1 = document.createElement("span");
+          let child2 = document.createElement("span");
+          child1.innerText += `${data[i].place_name}`;
+          child1.className = "child1";
+          child2.innerText += ` ${data[i].distance}m`;
+          child2.className = "child2";
+          content.appendChild(child1);
+          content.appendChild(child2);
           category.appendChild(content);
         }
         info2.appendChild(category);
@@ -159,14 +173,21 @@ export default {
       if (status === kakao.maps.services.Status.OK) {
         let info3 = document.getElementById("info3");
         let category = document.createElement("div");
+        category.className = "category";
         let type = document.createElement("h4");
-        type.innerText = `${data[0].category_group_name}`;
+        type.innerText = `[${data[0].category_group_name}]`;
         category.appendChild(type);
 
         for (var i = 0; i < data.length; i++) {
           let content = document.createElement("div");
-          content.innerText += `${data[i].place_name}`;
-          content.innerText += `${data[i].distance}m`;
+          let child1 = document.createElement("span");
+          let child2 = document.createElement("span");
+          child1.innerText += `${data[i].place_name}`;
+          child1.className = "child1";
+          child2.innerText += ` ${data[i].distance}m`;
+          child2.className = "child2";
+          content.appendChild(child1);
+          content.appendChild(child2);
           category.appendChild(content);
         }
         info3.appendChild(category);
@@ -273,5 +294,18 @@ export default {
 }
 .what-facility-off:hover {
   cursor: pointer;
+}
+#info1,
+#info2,
+#info3 {
+  text-align: left;
+  padding: 10px;
+}
+.category {
+  margin: 0 0 20px 0;
+}
+.child2 {
+  color: gray;
+  font-size: 14px;
 }
 </style>

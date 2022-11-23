@@ -25,12 +25,18 @@
         height: calc(100% - 100px);
         overflow-x: hidden;
         overflow-y: auto;
-        padding: 10px;
+        padding: 10px 5px 10px 10px;
       "
       class="house-scroll"
     >
       <div id="hdm"><house-detail-main></house-detail-main></div>
+      <div style="border-bottom: 1.5px solid #d3d3d3; margin: 20px 0"></div>
+      <div id="hdp">
+        <house-detail-price></house-detail-price>
+      </div>
+      <div style="border-bottom: 1.5px solid #d3d3d3; margin: 20px 0"></div>
       <div id="hdg">
+        <h3 style="margin: 0 0 25px 0">년도별 평균 거래가</h3>
         <house-detail-graph
           :chartData="chartData"
           :chartOptions="chartOptions"
@@ -38,11 +44,9 @@
           :height="50"
         ></house-detail-graph>
       </div>
-      <div id="hdp">
-        <house-detail-price></house-detail-price>
-      </div>
+      <div style="border-bottom: 1.5px solid #d3d3d3; margin: 20px 0"></div>
+
       <div id="hda"><house-detail-around></house-detail-around></div>
-      <!-- <div style="height: 50px; background-color: gray"></div> -->
     </div>
   </div>
 </template>
@@ -142,5 +146,9 @@ a {
   color: white;
   text-decoration: none;
   font-size: 14px;
+}
+a:hover {
+  color: white;
+  text-decoration: none;
 }
 </style>

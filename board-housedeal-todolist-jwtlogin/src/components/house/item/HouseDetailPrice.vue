@@ -1,10 +1,6 @@
 <template>
-  <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h5>실거래가 내역</h5></b-alert>
-      </b-col>
-    </b-row>
+  <div class="mt-3">
+    <h3 style="margin: 0 0 25px 0">실거래가 내역</h3>
     <b-row>
       <b-col>
         <b-table
@@ -29,7 +25,7 @@
         <p class="mt-3">전체페이지: {{ currentPage }} / {{ totalPage() }}</p>
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </template>
 
 <script>

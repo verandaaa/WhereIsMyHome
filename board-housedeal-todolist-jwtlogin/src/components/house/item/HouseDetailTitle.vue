@@ -5,7 +5,11 @@
         <div style="margin: 10px 0 0 15px; font-weight: 900; font-size: 18px">
           {{ house.aptName }}
         </div>
-        <div style="margin: 0 0 0 15px; font-size: 12px">주소 뜨는곳~~~~~</div>
+        <div style="margin: 0 0 0 15px; font-size: 12px">
+          {{ house.sidoName }} {{ house.gugunName }} {{ house.roadName }}
+          {{ house.roadNameBonbun
+          }}<span v-if="house.roadNameBubun">-{{ house.roadNameBubun }}</span>
+        </div>
       </div>
       <div class="item last">
         <b-img
