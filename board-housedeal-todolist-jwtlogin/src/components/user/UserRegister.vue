@@ -16,6 +16,7 @@
             placeholder="name"
             v-model="user.username"
             required
+            ref="username"
           />
           <span></span>
           <label>name</label>
@@ -27,9 +28,9 @@
             name="userId"
             placeholder="ID"
             v-model="user.userid"
-            ref="id"
             @keyup="idConfirm"
             required
+            ref="userid"
           />
           <span></span>
           <label>ID</label>
@@ -49,6 +50,7 @@
             placeholder="password"
             v-model="user.userpwd"
             required
+            ref="userpwd"
           />
           <span></span>
           <label>password</label>
@@ -61,6 +63,7 @@
             placeholder="email"
             v-model="user.email"
             required
+            ref="email"
           />
           <span></span>
           <label>email</label>

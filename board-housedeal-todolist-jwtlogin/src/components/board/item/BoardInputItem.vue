@@ -9,7 +9,8 @@
             v-model="article.userid"
             type="text"
             required
-            placeholder="작성자 입력..."
+            value=""
+            readonly
           ></b-form-input>
         </b-form-group>
 
@@ -43,6 +44,8 @@
 
 <script>
 import { writeArticle, modifyArticle, getArticle } from "@/api/board";
+import { mapState } from "vuex";
+const memberStore = "memberStore";
 
 export default {
   name: "BoardInputItem",
@@ -61,6 +64,7 @@ export default {
     type: { type: String },
   },
   created() {
+    this.article.userid = this.userInfo.userid;
     if (this.type === "modify") {
       let param = this.$route.params.articleno;
       getArticle(
@@ -78,6 +82,10 @@ export default {
       );
       this.isUserid = true;
     }
+  },
+
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
     onSubmit(event) {

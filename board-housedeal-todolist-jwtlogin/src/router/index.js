@@ -129,12 +129,6 @@ const routes = [
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/star/StarView"),
       },
-      {
-        path: "delete/:houseno",
-        name: "stardelete",
-        beforeEnter: onlyAuthUser,
-        component: () => import("@/components/star/StarDelete"),
-      },
     ],
   },
 ];

@@ -18,7 +18,7 @@
     <div style="height: 30px"></div>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <button @click="moveWrite()">글쓰기</button>
+        <button v-if="isAdmin" @click="moveWrite()">글쓰기</button>
       </b-col>
     </b-row>
     <b-row>
@@ -33,6 +33,9 @@
           :per-page="perPage"
           :current-page="currentPage"
         >
+          <template #cell(index)="data">
+            {{ data.index + 1 }}
+          </template>
           <template #cell(subject)="data">
             <router-link
               :to="{
@@ -62,6 +65,8 @@
 <script>
 // import { listArticle } from "@/api/board";
 import { apiInstance } from "@/api/index.js";
+import { mapState } from "vuex";
+const memberStore = "memberStore";
 
 export default {
   name: "BoardList",
@@ -72,12 +77,13 @@ export default {
       perPage: 10,
       articles: [],
       fields: [
-        { key: "articleno", label: "글번호", tdClass: "tdClass" },
+        { key: "index", label: "글번호", tdClass: "tdClass" },
         { key: "subject", label: "제목", tdClass: "tdSubject" },
         { key: "userid", label: "작성자", tdClass: "tdClass" },
         { key: "regtime", label: "작성일", tdClass: "tdClass" },
         { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
+      isAdmin: false,
     };
   },
   created() {
@@ -85,6 +91,7 @@ export default {
     api.get(`/board`).then(({ data }) => {
       this.articles = data;
     });
+    this.isAdmin = this.userInfo.role == 1;
   },
   methods: {
     moveWrite() {
@@ -101,7 +108,7 @@ export default {
     },
   },
   computed: {
-    // computed는 잘 안바뀌는 값을 마치 properties(메소드가 아닌 특성값)처럼 쓰기 위해 선언함. 호출 방식도 메서드 방식이 아닌 일반적인 변수와 비슷.
+    ...mapState(memberStore, ["userInfo"]),
     rows() {
       return this.articles.length;
     },
