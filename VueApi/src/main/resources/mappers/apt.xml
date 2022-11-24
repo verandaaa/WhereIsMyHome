@@ -66,13 +66,14 @@
     </select>
     
     <select id="getHouseInfoList"  resultType="houseInfoDto">
-<!--         select distinct aptName -->
-<!--         from houseinfo -->
+         select distinct aptName
+         from houseinfo
+		<!-- 세권정보 위한 쿼리
 		select hi.aptName, hi.lat, hi.lng, 
 		d.sidoName, d.gugunName, hi.roadName, trim('0' from hi.roadNameBonbun) roadNameBonbun, 
         trim('0' from hi.roadNameBubun) roadNameBubun
 		from houseinfo hi, dongCode d
-		where hi.dongCode = d.dongCode;
+		where hi.dongCode = d.dongCode -->
     </select>
     
 

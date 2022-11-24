@@ -66,11 +66,7 @@ const houseStore = {
 
     SET_HOUSE_INFO_LIST(state, houseinfos) {
       houseinfos.forEach((houseinfo) => {
-        state.houseinfos.push({
-          aptName: houseinfo.aptName,
-          lat: houseinfo.lat,
-          lng: houseinfo.lng,
-        });
+        state.houseinfos.push(houseinfo.aptName);
         //  + " " + houseinfo.dongName -> 주소도 넣으려면 받아서 같이 push
         //  but aptName 검색으로 연결되어있어 일단 뺌
       });
