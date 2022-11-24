@@ -66,8 +66,13 @@
     </select>
     
     <select id="getHouseInfoList"  resultType="houseInfoDto">
-        select distinct aptName
-        from houseinfo
+<!--         select distinct aptName -->
+<!--         from houseinfo -->
+		select hi.aptName, hi.lat, hi.lng, 
+		d.sidoName, d.gugunName, hi.roadName, trim('0' from hi.roadNameBonbun) roadNameBonbun, 
+        trim('0' from hi.roadNameBubun) roadNameBubun
+		from houseinfo hi, dongCode d
+		where hi.dongCode = d.dongCode;
     </select>
     
 
