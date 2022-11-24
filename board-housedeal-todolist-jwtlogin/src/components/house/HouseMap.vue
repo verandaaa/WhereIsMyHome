@@ -1,32 +1,32 @@
 <template>
   <div style="height: calc(100vh - 60px)">
     <div id="map"></div>
-    <ul id="category">
-      <li id="BK9" data-order="0">
+    <div id="category">
+      <div id="BK9" data-order="0">
         <span class="category_bg bank"></span>
         은행
-      </li>
-      <li id="MT1" data-order="1">
+      </div>
+      <div id="MT1" data-order="1">
         <span class="category_bg mart"></span>
         마트
-      </li>
-      <li id="PM9" data-order="2">
+      </div>
+      <div id="PM9" data-order="2">
         <span class="category_bg pharmacy"></span>
         약국
-      </li>
-      <li id="OL7" data-order="3">
-        <span class="category_bg oil"></span>
-        주유소
-      </li>
-      <li id="CE7" data-order="4">
+      </div>
+      <div id="SC4" data-order="3">
+        <span class="category_bg school"></span>
+        학교
+      </div>
+      <div id="CE7" data-order="4">
         <span class="category_bg cafe"></span>
         카페
-      </li>
-      <li id="CS2" data-order="5">
-        <span class="category_bg store"></span>
-        편의점
-      </li>
-    </ul>
+      </div>
+      <div id="SW8" data-order="5">
+        <span class="category_bg subway"></span>
+        교통
+      </div>
+    </div>
   </div>
 </template>
 
@@ -209,6 +209,7 @@ export default {
           position: coords,
           content: content,
           yAnchor: 1,
+          zIndex: 2,
         });
 
         i++;
@@ -280,12 +281,11 @@ export default {
     },
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     addMarker(position, order) {
-      var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      var imageSrc = require(`@/assets/category${order}.png`), // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(27, 28), // 마커 이미지의 크기
         imgOptions = {
-          spriteSize: new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
-          spriteOrigin: new kakao.maps.Point(46, order * 36), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+          // spriteSize: new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
+          // spriteOrigin: new kakao.maps.Point(46, order * 36), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
           offset: new kakao.maps.Point(11, 28), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
         },
         markerImage = new kakao.maps.MarkerImage(
@@ -531,67 +531,29 @@ export default {
 
 #category {
   position: absolute;
-  top: 300px;
-  left: 20px;
-  border-radius: 5px;
+  top: 250px;
+  right: 2px;
+  border-radius: 3px;
   border: 1px solid #909090;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   background: #fff;
   overflow: hidden;
   z-index: 1;
+  font-size: 14px;
 }
-#category li {
-  float: left;
-  list-style: none;
-  width: 50px;
-  border-right: 1px solid #acacac;
-  padding: 6px 0;
-  text-align: center;
+
+#category div.on {
+  background: rgb(237, 237, 255);
+}
+#category div:hover {
+  background: #eee;
   cursor: pointer;
 }
-#category li.on {
-  background: #eee;
+#category div {
+  padding: 7px 6px;
+  border-bottom: 1px solid #d2d2d2;
 }
-#category li:hover {
-  background: #ffe6e6;
-  border-left: 1px solid #acacac;
-  margin-left: -1px;
-}
-#category li:last-child {
-  margin-right: 0;
-  border-right: 0;
-}
-#category li span {
-  display: block;
-  margin: 0 auto 3px;
-  width: 27px;
-  height: 28px;
-}
-#category li .category_bg {
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
-    no-repeat;
-}
-#category li .bank {
-  background-position: -10px 0;
-}
-#category li .mart {
-  background-position: -10px -36px;
-}
-#category li .pharmacy {
-  background-position: -10px -72px;
-}
-#category li .oil {
-  background-position: -10px -108px;
-}
-#category li .cafe {
-  background-position: -10px -144px;
-}
-#category li .store {
-  background-position: -10px -180px;
-}
-#category li.on .category_bg {
-  background-position-x: -46px;
-}
+
 .placeinfo_wrap {
   position: absolute;
   bottom: 28px;
@@ -645,8 +607,8 @@ export default {
   margin: -1px -1px 0 -1px;
   padding: 10px;
   color: #fff;
-  background: #d95050;
-  background: #d95050
+  background: #ff8f27;
+  background: #ff8f27
     url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
     no-repeat right 14px center;
 }

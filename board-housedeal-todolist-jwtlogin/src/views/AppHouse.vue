@@ -9,7 +9,7 @@
         top: 20px;
         left: 50%;
         transform: translate(-50%, 0);
-        z-index: 1;
+        z-index: 2;
       "
     >
       <house-current-adress></house-current-adress>
@@ -20,7 +20,7 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        z-index: 1;
+        z-index: 2;
         width: 380px;
       "
     >
@@ -35,7 +35,7 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        z-index: 1;
+        z-index: 2;
         width: 400px;
         height: 100%;
         background-color: white;
@@ -45,7 +45,7 @@
       <house-detail />
     </div>
 
-    <div style="position: absolute; top: 135px; right: 50px; z-index: 1">
+    <div style="position: absolute; top: 135px; right: 50px; z-index: 2">
       <house-menu></house-menu>
     </div>
   </div>

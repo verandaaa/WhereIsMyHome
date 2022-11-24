@@ -54,7 +54,7 @@ export default {};
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   background: #fff;
   overflow: hidden;
-  z-index: 2;
+  z-index: 1;
 }
 #category li {
   float: left;
