@@ -45,6 +45,13 @@ public class StarServiceImpl implements StarService {
 		return starMapper.getStar(starParameterDto) == 1;
 	}
 
+
+	@Override
+	public StarDto getStarByAptCode(long aptCode) {
+	
+		return starMapper.getStarByAptCode(aptCode);
+	}
+
 	
 	
 	

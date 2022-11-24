@@ -35,7 +35,7 @@ import { mapState } from "vuex";
 const houseStore = "houseStore";
 
 export default {
-  name: "BoardList",
+  name: "HouseDetailPrice",
 
   data() {
     return {

@@ -39,14 +39,16 @@
           </template>
 
           <template #cell(aptName)="data">
-            <router-link
+            <!-- <router-link
               :to="{
-                name: 'StarView',
-                params: { starno: data.item.starNo },
+                name: 'starview',
+                params: { aptCode: data.item.aptCode },
               }"
-            >
-              {{ data.item.aptName }}
-            </router-link>
+            > -->
+            <span @click="viewStar(data.item.aptCode)" class="starSpan">{{
+              data.item.aptName
+            }}</span>
+            <!-- </router-link> -->
           </template>
 
           <template #cell(deletebtn)="data">
@@ -69,8 +71,11 @@
 </template>
 
 <script>
+import { getStarByAptCode } from "@/api/star";
 import { listStars, deleteStar } from "@/api/star";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
+
+const houseStore = "houseStore";
 const memberStore = "memberStore";
 
 export default {
@@ -105,12 +110,7 @@ export default {
     this.showlist();
   },
   methods: {
-    viewStar(star) {
-      this.$router.push({
-        name: "StarView",
-        params: { starno: star.starNo },
-      });
-    },
+    ...mapActions(houseStore, ["detailHouse"]),
     showlist() {
       listStars(
         this.userInfo.userid,
@@ -144,6 +144,25 @@ export default {
         ); //deleteStar
       } //if
     }, //deleteConfirm
+
+    viewStar(aptCodeParam) {
+      getStarByAptCode(
+        aptCodeParam,
+        ({ data }) => {
+          console.log("data 왔다", data, typeof data);
+
+          this.detailHouse(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+      this.$router.push({
+        name: "starview",
+        params: { aptCode: aptCodeParam },
+      });
+    },
 
     totalPage() {
       return Math.ceil(this.rows / this.perPage);
@@ -184,5 +203,13 @@ button {
 }
 button:hover {
   background-color: rgb(199, 199, 199);
+}
+
+.starSpan {
+  color: rgb(84, 147, 230);
+}
+
+.starSpan:hover {
+  cursor: pointer;
 }
 </style>

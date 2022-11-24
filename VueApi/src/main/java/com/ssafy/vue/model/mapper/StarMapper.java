@@ -18,5 +18,7 @@ public interface StarMapper {
 	public int deleteStar(StarParameterDto starParameterDto) throws SQLException;
 
 	public int getStar(StarParameterDto starParameterDto) throws SQLException;
+
+	public StarDto getStarByAptCode(long aptCode);
 	
 }

@@ -23,7 +23,7 @@
         where gugunName is not null
         and dongName is not null
         and left(dongCode, 5) = #{gugun}
-        order by dongName;
+        order by dongName
     </select>
     
     <select id="getAptInDong" parameterType="string" resultType="houseInfoDto">
@@ -49,7 +49,7 @@
         where hi.dongCode = #{dongCode}
         and hd.aptCode = hi.aptCode
         and hi.dongCode = d.dongCode
-        group by hd.aptCode;
+        group by hd.aptCode
     </select>
 
     <select id="getAptByName" parameterType="HouseParameterDto" resultType="houseInfoDto">
@@ -62,7 +62,7 @@
         where hi.aptName like concat ('%', #{aptName}, '%')
         and hd.aptCode = hi.aptCode
         and hi.dongCode = d.dongCode
-        group by hd.aptCode;
+        group by hd.aptCode
     </select>
     
     <select id="getHouseInfoList"  resultType="houseInfoDto">

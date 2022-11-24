@@ -124,7 +124,7 @@ const routes = [
         component: () => import("@/components/star/StarList"),
       },
       {
-        path: "view/:houseno",
+        path: "view/:aptCode",
         name: "starview",
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/star/StarView"),

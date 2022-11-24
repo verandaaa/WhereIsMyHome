@@ -36,7 +36,7 @@ public class HouseDealController {
 	
 	@ApiOperation(value = "아파트 목록", notes = "아파트코드를 기준으로 연도별 평균 거래금액을 반환한다.", response = List.class)
 	@GetMapping("/yearlyPrice/{aptCode}")
-	public ResponseEntity<Map<String, List<Integer>>> getAptByAddress(@PathVariable("aptCode") @ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) long aptCode) throws Exception {	
+	public ResponseEntity<Map<String, List<Integer>>> getYearlyPrice(@PathVariable("aptCode") @ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) long aptCode) throws Exception {	
 		logger.info("yearlyPrice - 호출 {} ", aptCode);
 		
 		return new ResponseEntity<Map<String, List<Integer>>>(houseDealService.getYearlyPrice(aptCode), HttpStatus.OK);
@@ -44,9 +44,9 @@ public class HouseDealController {
 
 	@ApiOperation(value = "아파트 목록", notes = "아파트코드를 기준으로 연도별 평균 거래금액을 반환한다.", response = List.class)
 	@GetMapping("/{aptCode}")
-	public ResponseEntity<List<HouseDealInfoDto>> getDealList(@PathVariable("aptCode") @ApiParam(value = "거래기록을 얻기위한 부가정보.", required = true) long aptCode) throws Exception {	
+	public ResponseEntity<List<HouseDealInfoDto>> getDealList(@PathVariable("aptCode") @ApiParam(value = "거래기록을 얻기위한 부가정보.", required = true) String aptCode) throws Exception {	
 		logger.info("getDealList - 호출 {} ");
 		
-		return new ResponseEntity<List<HouseDealInfoDto>>(houseDealService.getDealList(aptCode), HttpStatus.OK);
+		return new ResponseEntity<List<HouseDealInfoDto>>(houseDealService.getDealList(Long.parseLong(aptCode)), HttpStatus.OK);
 	}
 }

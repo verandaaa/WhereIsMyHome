@@ -15,5 +15,7 @@ public interface StarService {
 	boolean deleteStar(StarParameterDto starParameterDto) throws Exception;
 
 	boolean getStar(StarParameterDto starParameterDto) throws SQLException;
+
+	StarDto getStarByAptCode(long aptCode);
 	
 }

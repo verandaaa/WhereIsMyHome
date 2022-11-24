@@ -33,9 +33,6 @@
           :per-page="perPage"
           :current-page="currentPage"
         >
-          <template #cell(index)="data">
-            {{ data.index + 1 }}
-          </template>
           <template #cell(subject)="data">
             <router-link
               :to="{
@@ -77,7 +74,7 @@ export default {
       perPage: 10,
       articles: [],
       fields: [
-        { key: "index", label: "글번호", tdClass: "tdClass" },
+        { key: "articleno", label: "글번호", tdClass: "tdClass" },
         { key: "subject", label: "제목", tdClass: "tdSubject" },
         { key: "userid", label: "작성자", tdClass: "tdClass" },
         { key: "regtime", label: "작성일", tdClass: "tdClass" },

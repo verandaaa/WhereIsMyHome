@@ -40,10 +40,19 @@ public class StarController {
 	private StarService starService;
 	
 	@ApiOperation(value = "관심매물 목록", notes = "해당 회원의 관심매물 목록을 반환한다.", response = List.class)
-	@GetMapping("/{userid}")
+	@GetMapping("/list/{userid}")
 	public ResponseEntity<List<StarDto>> listStar(@PathVariable("userid") @ApiParam(value = "관심목록을 얻고자 하는 아이디", required = true) String userid) throws Exception {
 		logger.info("listStar - 호출" + userid);
 		return new ResponseEntity<List<StarDto>>(starService.listStar(userid), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "특정 관심매물에 대한 정보 조회 ", notes = "관심매물 목록에 있는 특정 매물 정보를 반환한다.", response = List.class)
+	@GetMapping("/one/{aptCode}")
+	public ResponseEntity<StarDto> getStarByAptCode(@PathVariable("aptCode") @ApiParam(value = "관심매물의 아파트코드", required = true) String aptCode) throws Exception {
+		
+		logger.info("listStar - 호출 {} " , aptCode);
+		
+		return new ResponseEntity<StarDto> (starService.getStarByAptCode(Long.parseLong(aptCode)), HttpStatus.OK);
 	}
 	
 	
@@ -73,9 +82,9 @@ public class StarController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 	
-	@ApiOperation(value = "관심매물 조회", notes = "번호에 해당하는 관심매물이 있는지 조회한다. 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@ApiOperation(value = "관심매물 조회", notes = "유저의 관심목록에 번호에 해당하는 관심매물이 있는지 조회한다. 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping("/one")
-	public ResponseEntity<String> getStar(@RequestBody @ApiParam(value ="관심목록 삭제할 회원 id, 아파트코드", required = true) StarParameterDto starParameterDto) throws Exception {
+	public ResponseEntity<String> getStar(@RequestBody @ApiParam(value ="관심목록 조회할 회원 id, 아파트코드", required = true) StarParameterDto starParameterDto) throws Exception {
 		logger.info("getStar - 호출 {}", starParameterDto );
 		System.out.println(starParameterDto);
 		
@@ -84,5 +93,7 @@ public class StarController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
+	
 }
 

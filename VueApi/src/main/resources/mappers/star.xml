@@ -30,5 +30,18 @@
 		and aptCode = #{aptCode}
 	</select>
 	
+	<select id="getStarByAptCode" parameterType="long" resultType ="StarDto">
+		select hi.aptCode, hi.aptName, hi.buildYear, hi.dongName, hi.roadName, trim('0' from hi.roadNameBonbun) roadNameBonbun, 
+        trim('0' from hi.roadNameBubun) roadNameBubun,
+                 hi.jibun, hi.lng, hi.lat, hi.dongCode,
+                hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area, hd.floor, max(hd.dealDate) dealDate,
+                d.sidoName, d.gugunName
+        from housedeal hd, houseinfo hi, dongcode d
+        where hi.aptCode = #{aptCode}
+        and hd.aptCode = hi.aptCode
+        and hi.dongCode = d.dongCode
+        group by hd.aptCode
+	</select>
+	
 	
 </mapper>
