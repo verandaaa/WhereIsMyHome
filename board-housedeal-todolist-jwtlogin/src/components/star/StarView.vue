@@ -1,24 +1,6 @@
 <template>
   <div style="height: 100%">
-    <div style="height: 100px; border-bottom: 1.5px solid #d3d3d3">
-      <div
-        style="
-          height: 30px;
-          background-color: #084895;
-          padding: 3px 15px 0 15px;
-        "
-      >
-        <b-row
-          ><b-col><a href="#hdm">메인</a></b-col
-          ><span style="color: #215ba0">|</span
-          ><b-col><a href="#hdg">차트</a></b-col
-          ><span style="color: #215ba0">|</span
-          ><b-col><a href="#hdp">목록</a></b-col
-          ><span style="color: #215ba0">|</span
-          ><b-col><a href="#hda">주변</a></b-col></b-row
-        >
-      </div>
-    </div>
+    <div style="height: 50px"></div>
     <div
       style="
         height: calc(100% - 100px);

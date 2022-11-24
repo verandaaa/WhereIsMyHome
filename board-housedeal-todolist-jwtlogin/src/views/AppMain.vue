@@ -2,12 +2,13 @@
   <div style="height: calc(100vh - 60px)">
     <div class="box01">
       <div class="container">
-        <div>--------------검색창------------</div>
         <div class="part-1">아파트 실거래가 조회</div>
-        <div class="part-2">'우리집'<br />타이어보다 비싸다</div>
-        <div class="part-3">집 정보, 관심목록 볼 수 있다!!</div>
+        <div class="part-2">It's alright!<br />우리집으로 가자!</div>
+        <div class="part-3">
+          우리집처럼 느껴지는 편안한 서비스를 선보입니다.
+        </div>
         <div class="part-4">
-          #아파트 #좋아요 #몇층 #얼마<br />#즐찾 #어디 #싸다
+          #아파트 #즐겨찾기 #뉴스 #주변정보<br />#차트 #어디 #내집
         </div>
         <div class="part-5">
           <router-link :to="{ name: 'house' }"> 아파트 보러가기 </router-link>
@@ -57,23 +58,23 @@ export default {
   width: 50%;
 }
 .part-1 {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
   margin: 10px;
 }
 .part-2 {
-  font-size: 44px;
+  font-size: 60px;
   font-weight: bold;
   margin: 20px;
 }
 .part-3 {
-  font-size: 30px;
+  font-size: 34px;
   font-weight: bold;
   margin: 10px;
 }
 .part-4 {
   font-size: 20px;
-  margin: 10px;
+  margin: 20px 10px 30px 10px;
 }
 a {
   font-size: 16px;

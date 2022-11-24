@@ -93,7 +93,6 @@ export default {
         { key: "address", label: "상세주소", tdClass: "tdAddress" },
         { key: "aptName", label: "아파트이름", tdClass: "tdaptName" },
         { key: "buildYear", label: "건축년도", tdClass: "tdbuildYear" },
-        { key: "price", label: "최근 거래 가격", tdClass: "tdPrice" },
         { key: "deletebtn", label: "삭제", tdClass: "tdDeletebtn" },
       ],
     };

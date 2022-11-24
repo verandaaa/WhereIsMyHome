@@ -14,7 +14,7 @@
           ><router-link :to="{ name: 'board' }"> 공지사항 </router-link>
           <router-link :to="{ name: 'house' }"> 아파트정보 </router-link>
           <router-link :to="{ name: 'news' }"> 부동산뉴스 </router-link>
-          <router-link :to="{ name: 'local' }"> 세권정보 </router-link>
+          <!-- <router-link :to="{ name: 'local' }"> 세권정보 </router-link> -->
           <router-link :to="{ name: 'star' }"> 관심목록 </router-link>
         </b-col>
         <b-col id="col-user" v-if="userInfo">

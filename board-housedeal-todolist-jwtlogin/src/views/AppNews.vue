@@ -1,21 +1,21 @@
 <template>
-  <!-- <div>뉴스</div> -->
-  <div class="container">
+  <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
         <div class="user-wrap">
           <div class="user-image">
             <b-img
-              :src="require('@/assets/news.png')"
+              :src="require('@/assets/news2.png')"
               style="width: 100%; border-radius: 15px; filter: brightness(50%)"
             ></b-img>
           </div>
           <div class="user-text">
-            <p style="color: white; font-size: 36px">부동산 뉴스</p>
+            <p style="color: white; font-size: 36px">부동산뉴스</p>
           </div>
         </div>
       </b-col>
     </b-row>
+
     <div class="listcon">
       <h3 class="title">부동산(RealEstate)</h3>
       <ul class="ti-list-ul">
@@ -68,7 +68,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -137,9 +137,9 @@ a:active {
 
 .title {
   margin-top: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   border-bottom: 2px solid #ccc;
-  width: 500px;
+  width: 750px;
   padding-bottom: 10px;
 }
 
@@ -164,5 +164,8 @@ a:active {
   transform: translate(-50%, -50%);
   font-size: 20px;
   text-align: center;
+}
+a:hover {
+  text-decoration: none;
 }
 </style>
